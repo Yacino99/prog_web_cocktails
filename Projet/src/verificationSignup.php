@@ -21,11 +21,24 @@ if (! file_exists("users.txt") )
 {
   $myfile = fopen("users.txt", "w") or die("Unable to open file!");
 
-  fwrite($myfile, $_POST['email'].' ');      // email login mdp nom prenom
-  fwrite($myfile, $_POST['login'].' ');
-  fwrite($myfile, $_POST['pass'].' ');
-  fwrite($myfile, $_POST['nom'].' ');
-  fwrite($myfile, $_POST['prenom'].PHP_EOL);
+  fwrite($myfile, trim( $_POST['email']) );      // email login mdp nom prenom
+  fwrite($myfile, " ");
+
+
+  fwrite($myfile, trim( $_POST['login']) );
+  fwrite($myfile, " ");
+
+    fwrite($myfile, trim($_POST['pass']) );
+    fwrite($myfile, " ");
+
+
+    fwrite($myfile, trim( $_POST['nom']) );
+    fwrite($myfile, " ");
+
+    fwrite($myfile, trim( $_POST['prenom']) );
+    fwrite($myfile, " ");
+
+    fwrite($myfile, " ".PHP_EOL);
 
   fclose($myfile);
 
@@ -40,15 +53,27 @@ else {
 
   $myfile = fopen("users.txt", "a") or die("Unable to open file!");
 
-  fwrite($myfile, $_POST['email'].' ');      // email login mdp nom prenom
-  fwrite($myfile, $_POST['login'].' ');
-  fwrite($myfile, $_POST['pass'].' ');
-  fwrite($myfile, $_POST['nom'].' ');
-  fwrite($myfile, $_POST['prenom'].PHP_EOL);
+  fwrite($myfile, trim($_POST['email']) );      // email login mdp nom prenom
+  fwrite($myfile, " ");
+
+  fwrite($myfile, trim( $_POST['login']) );
+  fwrite($myfile, " ");
+
+  fwrite($myfile, trim($_POST['pass']) );
+  fwrite($myfile, " ");
+
+
+  fwrite($myfile, trim( $_POST['nom']) );
+  fwrite($myfile, " ");
+
+  fwrite($myfile, trim( $_POST['prenom']) );
+  fwrite($myfile, " ");
+
+  fwrite($myfile, " ".PHP_EOL);
 
   fclose($myfile);
 
-  header("Location: welcome.php");
+  header("Location: index.php");
 }
 
   ?>
