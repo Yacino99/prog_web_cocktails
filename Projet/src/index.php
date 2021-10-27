@@ -20,7 +20,7 @@
           <input type="search" id="recherche" name="recherche">
           <button type="submit" name="submit"> inserer une image loupe </button>
         </span>
-         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> <button type="button" name="button"> Zone de connexion </button> </a>
+         <a href="login.php"> <button type="button" name="button"> Zone de connexion </button> </a>
 
       </div>
 
