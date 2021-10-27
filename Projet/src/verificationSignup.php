@@ -2,6 +2,29 @@
 
 include_once 'fonctions.php';
 
+$debutHtmlEtStyle = "<!DOCTYPE html>
+                     <html>
+                     <head>
+                     <style>
+                     .center {
+                       position: absolute;
+                       left: 50%;
+                       top: 50%;
+                       transform: translate(-50%, -50%);
+                       border: 5px solid #FFFF00;
+                       padding: 10px;
+                     }
+
+                     </style>
+                     </head>
+                     <body>
+";
+
+$finhtml = "
+</body>
+</html>
+";
+
 if(!isset($_POST['email']) || estVide($_POST['email']) )
     echo "Vous avez mal renseigné votre email , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
 
@@ -45,10 +68,34 @@ if (! file_exists("users.txt") )
   header("Location: index.php");
 
 }elseif (emailExist($_POST['email'])) {
-  echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";
+
+  //echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";
+
+  echo "$debutHtmlEtStyle";
+  echo "<h2 style='color:red'>Erreur Email deja existant</h2>";
+
+  echo "<div class='center'>
+              <p>reassyez ici   <a href='creerCompte.php'> CREER COMPTE </a>
+              </p>
+            </div>";
+
+  echo "$finhtml";
+
+}elseif(loginExist($_POST['login']))
+{
+
+  echo "$debutHtmlEtStyle";
+
+    echo "<h2 style='color:red'>Erreur Login deja existant</h2>";
+
+    echo "<div class='center'>
+            <p>reassyez ici   <a href='creerCompte.php'> CREER COMPTE </a>
+            </p>
+          </div>";
+
+    echo "$finhtml";
 
 }
-
 else {
 
   $myfile = fopen("users.txt", "a") or die("Unable to open file!");

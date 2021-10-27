@@ -50,14 +50,11 @@ elseif (! loginExist($_POST['login'])) {
 
 }
 elseif (mdpCorrect($_POST['login'] , $_POST['pass'])) {
-  // code...
+
   $_SESSION['usr'] = $_POST['login'];
-  header("Location: welcome.php");
+  header("Location: index.php");
 }
 else {
-  //include_once 'welcome.php';
-  //header("Location: welcome.php");
-
 
     echo "<h2 style='color:red'>Erreur :  mot de passe incorrect</h2>" ;
 
