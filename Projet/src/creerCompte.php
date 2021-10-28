@@ -59,26 +59,21 @@
 
   const loginExsistant = function(text) // savoir si le login exist
   {
-    //console.log(text);
+
     lineArray = text.split("\n");
 
-    console.log({lineArray});
-  // / console.log("test---10",lineArray);
-  //  console.log(lineArray.length);
 
     let existe = false;
 
     login.addEventListener("keyup", function( event ) {
 
-    //  m = lineArray[1].split(" ");
-    //  console.log(m[0]);
+
       for(i = 0 ; i < lineArray.length-1 ; i++){
 
-        //console.log(lineArray[i]);
+
         mots = lineArray[i].split(" ");
-        //console.log(mots[1]);
-        console.log(`"${mots[1]}"`,login.value);
-        if(login.value == mots[1] ) {existe = true; break; } else { existe=false; }// btn.disabled=true; warn.style.display = "block";}// else { btn.disabled=false; warn.style.display = "none";}
+
+        if(login.value == mots[1] ) {existe = true; break; } else { existe=false; }
     }
         console.log(existe);
         if(login.value === mots[1])

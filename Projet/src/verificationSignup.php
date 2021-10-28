@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once 'fonctions.php';
 
@@ -120,6 +121,7 @@ else {
 
   fclose($myfile);
 
+  $_SESSION['usr'] = $_POST['login'];
   header("Location: index.php");
 }
 
