@@ -23,7 +23,11 @@
       <input type="text" placeholder="Entrez votre Prenom" name="prenom" required>
 
     <label for="uname"><b>Login</b></label>
-    <input type="text" placeholder="Entrez votre Login" name="login" required>
+    <input type="text" placeholder="Entrez votre Login" name="login" id="login" required>
+
+    <div class="alert" id="warn">
+      <p>Login deja existant ! choisissez un autre </p>
+    </div>
 
      <label for="Email"><b>Email</b></label>
      <input type="text" placeholder="Entrez votre Email" name="email" required>
@@ -31,7 +35,7 @@
     <label for="psw"><b>Mot de Passe</b></label>
     <input type="password" placeholder="Entrez votre mot de passe " name="pass" required>
 
-    <button type="submit">Creer le Compte ! </button>
+    <button type="submit" id="submit">Creer le Compte ! </button>
 
   </div>
 
@@ -42,4 +46,61 @@
 
 
 </body>
+
+<script type="text/javascript">
+
+
+  btn = document.getElementById("submit");
+  login = document.getElementById('login');
+  warn = document.getElementById('warn');
+  warn.style.display = "none";
+  var utilisateurs = "";
+
+
+  const loginExsistant = function(text) // savoir si le login exist
+  {
+    //console.log(text);
+    lineArray = text.split("\n");
+
+    console.log({lineArray});
+  // / console.log("test---10",lineArray);
+  //  console.log(lineArray.length);
+
+    let existe = false;
+
+    login.addEventListener("keyup", function( event ) {
+
+    //  m = lineArray[1].split(" ");
+    //  console.log(m[0]);
+      for(i = 0 ; i < lineArray.length-1 ; i++){
+
+        //console.log(lineArray[i]);
+        mots = lineArray[i].split(" ");
+        //console.log(mots[1]);
+        console.log(`"${mots[1]}"`,login.value);
+        if(login.value == mots[1] ) {existe = true; break; } else { existe=false; }// btn.disabled=true; warn.style.display = "block";}// else { btn.disabled=false; warn.style.display = "none";}
+    }
+        console.log(existe);
+        if(login.value === mots[1])
+        {
+          btn.disabled=true ; btn.className = "redButton" ;btn.innerHTML="Pas de creation de compte"; warn.style.display = "block"; return;
+        }else {
+           btn.disabled=false; btn.className = "";btn.innerHTML="Creer le compte !"; warn.style.display = "none"; return;
+        }
+
+    } )
+
+
+}
+
+fetch('users.txt')
+.then(response => response.text())
+.then(text => loginExsistant(text)
+
+)
+
+
+  </script>
+
+
 </html>

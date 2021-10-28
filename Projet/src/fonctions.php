@@ -13,14 +13,18 @@ function emailExist($email) : bool  // verifie si l'email existe  fichier type -
         $arrayString =  explode(" ", $line ); // split string with space (white space) as a delimiter.
 
       if($email === trim($arrayString[0]) )
+      {
+        fclose($handle);
         return true;
+      }
+
     }
 
     fclose($handle);
 
-    return false;
-  }
 
+  }
+    return false;
 }
 
 
@@ -37,13 +41,19 @@ function loginExist($login) : bool  // verifie si le login existe  fichier type 
         $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
 
       if($login === trim($arrayString[1]) )
+      {
+        fclose($handle);
         return true;
+      }
+
     }
 
-    fclose($handle);
 
-    return false;
   }
+
+  fclose($handle);
+
+  return false;
 }
 
 function estVide($mot)
@@ -63,7 +73,11 @@ function mdpCorrect($login , $mdp) : bool
               $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
 
               if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2]))
+              {
+                fclose($handle);
                 return true;
+              }
+
             }
     }
 

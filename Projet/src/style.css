@@ -20,6 +20,16 @@ button {
     width: 100%;
 }
 
+.redButton{
+    background-color: red;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
 button:hover {
     opacity: 0.8;
 }
@@ -59,3 +69,13 @@ span.psw {
         width: 100%;
     }
 }
+
+
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+

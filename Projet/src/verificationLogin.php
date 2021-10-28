@@ -1,5 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
 
+$html = "
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +17,10 @@
 </style>
 </head>
 <body>
+";
 
-<?php
+
+
 $titre= "<h2 style='color:red'>Erreur Login ou mot de passe incorrect</h2>";
 
 $box="
@@ -27,11 +30,16 @@ $box="
 
   </p>
 </div>
+
+</body>
+</html>
+
+
 ";
 
- ?>
 
-<?php
+
+
 
 
 include_once 'fonctions.php';
@@ -71,5 +79,3 @@ else {
 
  ?>
 
-</body>
-</html>
