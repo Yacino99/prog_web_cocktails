@@ -1,13 +1,20 @@
+<?php 
+    if (isset($_GET['alimCourant']))
+      $alimCourant = $_GET['alimCourant'];
+    else // 1ère visite
+      $alimCourant = 'Aliment';
+?>
+
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>Acceuil</title>
+    <?php include 'Donnees.inc.php'; echo PHP_EOL; ?>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   </head>
   <body>
-
 
     <div class="main border container">
       <div class="navigationHaut border">
@@ -30,19 +37,40 @@
         <div class="navigationGauche border col-auto">
 
           <h3>Aligment Courant</h3>
+          <span>
+            <?php
+              $chemin = array();
+      
+              if (isset($Hierarchie[$alimCourant]['super-categorie'])) { // on vérifie que la super categorie existe
+                                                                        // càd alimCourant != Aliment
+                array_push($chemin, $alimCourant);
+                $super = $Hierarchie[$alimCourant]['super-categorie'];
+                while(isset($Hierarchie[$super[0]]['super-categorie'])) {
+                  array_push($chemin, $super[0]);
+                  $super = $Hierarchie[$super[0]]['super-categorie'];
+                } // $super n'a plus de super catégorie donc c'est aliment
+              }
+              // on sait qu'il ne nous manque plus que Aliment donc on peut le traiter tout de suite
+              // ce qui aidera pour l'affichage des /
+              echo "<a href=\"".$_SERVER["PHP_SELF"]."?alimCourant=Aliment\">Aliment</a>";
 
-        <span>  <a href="#"> Aliment </a> / <a href="#">Fruit</a> / <a href="#">Agrumes</a> </span>
+              $chemin = array_reverse($chemin); // on inverse le reste du chemin pour avoir alimCourant en dernier
+              foreach($chemin as $categorie) {
+                echo "/";
+                echo "<a href=\"".$_SERVER["PHP_SELF"]."?alimCourant=".$categorie."\">".$categorie."</a>";
+              }
+            ?>
+          </span>
 
           <h4>Sous-Categories</h4>
-
           <ul>
-            <li> <a href="#">Citron</a> </li>
-            <li> <a href="#">Citron vert</a> </li>
-            <li> <a href="#">Kumqat</a> </li>
-            <li> <a href="#">Mandarine</a> </li>
-            <li> <a href="#">Orange</a> </li>
-            <li> <a href="#">Pamplemousse</a> </li>
-            <li> <a href="#"> Partie d'Agrumes </a> </li>
+            <?php
+              if (isset($Hierarchie[$alimCourant]['sous-categorie'])) {
+                foreach($Hierarchie[$alimCourant]['sous-categorie'] as $sousCategorie) {
+                  echo "<li> <a href=\"".$_SERVER["PHP_SELF"]."?alimCourant=".$sousCategorie."\">".$sousCategorie."</a> </li>";
+                }
+              }
+            ?>
           </ul>
 
         </div>
