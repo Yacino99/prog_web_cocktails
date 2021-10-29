@@ -79,37 +79,55 @@
 
           <h4>Liste des Cocktails</h4>
 
+          <?php
+            // Ici on sélectionne les recettes qui correspondent à l'aliment courant :
+            $res = array();
+            foreach($Recettes as $numRecette => $Recette) {
+              foreach($Recette['index'] as $num => $ingredient) {
+                // ne pas oublier && !in_array($Recette, $res) car une recette peut avoir plusieurs ingredients
+                // qui correspondent à l'alimCourant
+                if ($alimCourant == 'Aliment' && !in_array($Recette, $res)) // alors on prend tout
+                  array_push($res, $Recette);
+                else { // sinon il faut sélectionner
+                  if ($ingredient == $alimCourant && !in_array($Recette, $res)) { // on ajoute les recettes qui 
+                                                                                  // contiennent l'alimCourant
+                    array_push($res, $Recette);
+                  }
+                  else {
+                    if (isset($Hierarchie[$ingredient]['super-categorie']))
+                      $super = $Hierarchie[$ingredient]['super-categorie'][0];
+                    while(isset($Hierarchie[$super]['super-categorie'])) { // on regarde dans toutes les super-categories
+                                                                           // de l'ingredient qu'on regarde pour voir
+                                                                           // si elle correspond à l'alimCourant
+                      if ($super == $alimCourant && !in_array($Recette, $res))
+                        array_push($res, $Recette);
+                      $super = $Hierarchie[$super]['super-categorie'][0];
+                    }
+                  }
+                }
+              }
+            }
+          ?>
+
           <div class="row">
-                <div class="boisson border col-auto">
-                  <h5>bloody Mary</h5>
-
-                  <img src="une iamge de coeur a recup sur le net" alt="coeur">
-                  <img src="image de la boisson a recup dans les photos" alt="boisson">
-
-                  <ul>
-                    <li>vodka</li>
-                    <li>jus de citron</li>
-                    <li>Jus d'orange</li>
-                  </ul>
-
-                </div>
-
-
-                <div class="boisson border col-auto">
-                  <h5>bloody Mary</h5>
-
-                  <img src="une iamge de coeur a recup sur le net" alt="coeur">
-                  <img src="image de la boisson a recup dans les photos" alt="boisson">
-
-                  <ul>
-                    <li>vodka</li>
-                    <li>jus de citron</li>
-                    <li>Jus d'orange</li>
-                  </ul>
-
-            </div>
+            <?php
+              // Ici on affiche les recettes qu'on vient de sélectionner :
+              foreach($res as $Recette) {
+                echo "
+                  <div class=\"boisson border col-auto\">
+                  <h5>".$Recette['titre']."</h5>
+                  <img src=\"une iamge de coeur a recup sur le net\" alt=\"coeur\">
+                  <img src=\"image de la boisson a recup dans les photos\" alt=\"boisson\">
+                ";
+                echo "<ul>"; 
+                foreach($Recette['index'] as $num => $ingredient) {
+                  echo "<li>".$ingredient."</li>";
+                }
+                echo "</ul>";
+                echo "</div>";  
+              }
+            ?>
           </div>
-
 
         </div>
 
