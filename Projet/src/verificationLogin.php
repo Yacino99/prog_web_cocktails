@@ -56,7 +56,17 @@ elseif (! loginExist($_POST['login'])) {
 }
 elseif (mdpCorrect($_POST['login'] , $_POST['pass'])) {
 
-  $_SESSION['usr'] = $_POST['login'];
+
+    $nom = getNom($_POST['login'] , 'users.txt');
+    $prenom = getPrenom($_POST['login'] , 'users.txt');
+    $email = getEmail($_POST['login'] , 'users.txt');
+
+    $_SESSION['login'] = $_POST['login'];
+    $_SESSION['email'] = $email;
+    $_SESSION['pass'] = $_POST['pass'];
+    $_SESSION['nom'] = $nom;
+    $_SESSION['prenom'] = $prenom;
+
   header("Location: index.php");
 }
 else {

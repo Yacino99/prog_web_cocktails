@@ -1,4 +1,5 @@
-<?php 
+<?php
+    session_start();
     if (isset($_GET['alimCourant']))
       $alimCourant = $_GET['alimCourant'];
     else // 1ère visite
@@ -37,6 +38,7 @@
         <div class="navigationGauche border col-auto">
 
           <h3>Aligment Courant</h3>
+
           <span>
             <?php
               $chemin = array();

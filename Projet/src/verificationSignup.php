@@ -64,6 +64,12 @@ if (! file_exists("users.txt") )
 
     fwrite($myfile, " ".PHP_EOL);
 
+  $_SESSION['login'] = $_POST['login'];
+  $_SESSION['email'] = $_POST['email'];
+  $_SESSION['pass'] = $_POST['pass'];
+  $_SESSION['nom'] = $_POST['nom'];
+  $_SESSION['prenom'] = $_POST['prenom'];
+
   fclose($myfile);
 
   header("Location: index.php");
@@ -121,7 +127,12 @@ else {
 
   fclose($myfile);
 
-  $_SESSION['usr'] = $_POST['login'];
+  $_SESSION['login'] = $_POST['login'];
+  $_SESSION['email'] = $_POST['email'];
+  $_SESSION['pass'] = $_POST['pass'];
+  $_SESSION['nom'] = $_POST['nom'];
+  $_SESSION['prenom'] = $_POST['prenom'];
+
   header("Location: index.php");
 }
 
