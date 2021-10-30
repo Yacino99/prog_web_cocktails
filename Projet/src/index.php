@@ -113,13 +113,17 @@
             <?php
               // Ici on affiche les recettes qu'on vient de sélectionner :
               foreach($res as $Recette) {
+                $nomFichier = str_replace(' ', '_', $Recette['titre']);
+                $nomFichier = $nomFichier.".jpg";
+                if (!file_exists("../Photos/".$nomFichier))
+                  $nomFichier = "cocktail.png";
                 echo "
                   <div class=\"boisson border col-auto\">
                   <h5>".$Recette['titre']."</h5>
                   <img src=\"une iamge de coeur a recup sur le net\" alt=\"coeur\">
-                  <img src=\"image de la boisson a recup dans les photos\" alt=\"boisson\">
+                  <img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
                 ";
-                echo "<ul>"; 
+                echo "<ul>";
                 foreach($Recette['index'] as $num => $ingredient) {
                   echo "<li>".$ingredient."</li>";
                 }
