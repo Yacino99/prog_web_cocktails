@@ -1,6 +1,6 @@
 <?php
 
-function emailExist($email) : bool  // verifie si l'email existe  fichier type --> email login mdp nom prenom
+function emailExist($email)  // verifie si l'email existe  fichier type --> email login mdp nom prenom
 {
   if (! file_exists("users.txt"))
       return false;
@@ -28,7 +28,7 @@ function emailExist($email) : bool  // verifie si l'email existe  fichier type -
 }
 
 
-function loginExist($login) : bool  // verifie si le login existe  fichier type --> email login mdp nom prenom
+function loginExist($login)   // verifie si le login existe  fichier type --> email login mdp nom prenom
 {
   if (! file_exists("users.txt"))
       return false;
@@ -61,7 +61,7 @@ function estVide($mot)
   return trim($mot) == '';
 }
 
-function mdpCorrect($login , $mdp) : bool
+function mdpCorrect($login , $mdp)
 {
   $handle = fopen("users.txt", "r");
 
