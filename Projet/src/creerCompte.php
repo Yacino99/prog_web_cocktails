@@ -35,7 +35,7 @@
     <br> <br>
 
     <label for="naissance"><b>Date de Naissance</b></label>
-    <input type="date" placeholder="jj/mm/aaaa" name="naissance" id="naissance"> <br> <br>
+    <input type="date" placeholder="jj/mm/aaaa" name="naissance" id="naissance" onchange="majeur()"> <br> <br>
 
     <label for="adresse"><b>Adresse</b></label>
     <input type="text" placeholder="Adresse" name="adresse" > <br>
@@ -122,13 +122,28 @@ fetch('users.txt')
 .then(text => loginExsistant(text)
 
 )
-/*
-naissance = document.getElementById("naissance");
-naissance.addEventListener('keyup'function(event){  //---TODO : verifier qu'il est majeur
 
-    console.log(naissance.value);
-});
-*/
+naissance = document.getElementById("naissance");
+
+var aujourdhui = new Date();
+var cetteAnnee = aujourdhui.getFullYear();
+
+
+function majeur(){
+var ladate = naissance.value.split('-');
+
+  var age =  cetteAnnee -  ladate[0];
+  console.log(naissance.value,ladate[0],"ton age est ",age);
+
+  if(age < 18){
+    alert("Tu dois avoir plus de 18 pour boire , gamin");
+    btn.disabled=true;
+  }
+  else
+    btn.disabled=false;
+
+}
+
   </script>
 
 
