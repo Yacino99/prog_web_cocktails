@@ -133,8 +133,6 @@ function majeur(){
 var ladate = naissance.value.split('-');
 
   var age =  cetteAnnee -  ladate[0];
-  console.log(naissance.value,ladate[0],"ton age est ",age);
-
   if(age < 18){
     alert("Tu dois avoir plus de 18 pour boire , gamin");
     btn.disabled=true;
