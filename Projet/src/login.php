@@ -1,10 +1,12 @@
+<!--
+
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <title>Conntectez vous</title>
   <link rel="stylesheet" href="style.css">
- <!-- <script src="script.js"></script> -->
+
 </head>
 <body>
 
@@ -19,20 +21,20 @@
     <label for="uname"><b>Login</b></label>
     <input type="text" placeholder="Entrez votre Login" name="login" id="login" required>
 
-      <!--
+     
       <div class="alert" id="warnLogin">
           <p> Le login ne doit pas etre vide </p>
       </div>
 
-    -->
+    
 
       <label for="psw"><b>Mot de Passe</b></label>
     <input type="password" placeholder="Entrez votre mot de passe "  id="pass" name="pass" required>
-     <!--
+     
       <div class="alert" id="warnPass">
           <p>le mot de pass ne doit pas etre vide </p>
       </div>
-    -->
+    
       <button type="submit" id="submit">Se connecter</button>
 
      <label for="noAccount"><b>Pas de Compte ? </b> </br> </br> <b>Facile , il suffit den creer un </b>  </label>
@@ -80,3 +82,5 @@
 </script>
 
 </html>
+
+-->

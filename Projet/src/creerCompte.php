@@ -17,17 +17,46 @@
 
   <div class="container">
     <label for="nom"><b>Nom</b></label>
-    <input type="text" placeholder="Entrez votre Nom" name="nom" required>
+    <input type="text" placeholder="Entrez votre Nom" name="nom" pattern="^[a-zA-Z0-9 \-']*$" >
 
       <label for="prenom"><b>Prenom</b></label>
-      <input type="text" placeholder="Entrez votre Prenom" name="prenom" required>
+      <input type="text" placeholder="Entrez votre Prenom" name="prenom" pattern="^[a-zA-Z0-9\-']*$" >
+
+    <p>Sexe :</p>
+
+    <input type="radio" 
+     name="sexe" value="homme">
+    <label for="Homme">Homme</label>
+
+    <input type="radio"
+     name="sexe" value="femme">
+    <label for="Femme">Femme</label>
+
+    <br> <br>
+
+    <label for="naissance"><b>Date de Naissance</b></label>
+    <input type="date" placeholder="jj/mm/aaaa" name="naissance" id="naissance"> <br> <br>
+
+    <label for="adresse"><b>Adresse</b></label>
+    <input type="text" placeholder="Adresse" name="adresse" > <br>
+
+    <label for="poste"><b>Code Postale</b></label>
+    <input type="number" placeholder="XXXXX" name="poste" > <br>
+
+    <label for="ville"><b>Ville</b></label>
+    <input type="text" placeholder="Ville" name="ville" > <br>
+
 
     <label for="uname"><b>Login</b></label>
-    <input type="text" placeholder="Entrez votre Login" name="login" id="login" required>
+    <input type="text" placeholder="Entrez votre Login" name="login" id="login" required pattern="^[a-zA-Z0-9_]*$">
 
     <div class="alert" id="warn">
       <p>Login deja existant ! choisissez un autre </p>
     </div>
+
+    <label for="tel"><b>Telephone</b></label>
+    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0[0-9]{9}" > <br>
+
 
      <label for="Email"><b>Email</b></label>
      <input type="text" placeholder="Entrez votre Email" name="email" required>
@@ -93,8 +122,13 @@ fetch('users.txt')
 .then(text => loginExsistant(text)
 
 )
+/*
+naissance = document.getElementById("naissance");
+naissance.addEventListener('keyup'function(event){  //---TODO : verifier qu'il est majeur
 
-
+    console.log(naissance.value);
+});
+*/
   </script>
 
 

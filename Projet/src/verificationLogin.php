@@ -25,7 +25,7 @@ $titre= "<h2 style='color:red'>Erreur Login ou mot de passe incorrect</h2>";
 
 $box="
 <div class='center'>
-  <p>reassyez ici   <a href='Login.php'> PAGE DE LOGIN </a>
+  <p>reassyez ici   <a href='index?page=navigation'> RETOUR A LA PAGE PRINCIPALE </a>
   ou creer un compte ici -->   <a href='creerCompte.php'> CREER COMPTE </a>
 
   </p>

@@ -21,15 +21,37 @@
         <div class="navigationHaut border">
 
           <a href="?page=navigation"> Navigation </a>
-          <a href="?page=recherche"> Recherche </a>
+        <!--  <a href="?page=recherche"> Recherche </a>  -->
 
           <span>
             Recherche :
             <input type="search" id="recherche" name="recherche">
-            <button type="submit" name="submit"> inserer une image loupe </button>
+            <button type="submit" name="submit"> loupe </button>
           </span>
-          <a href="?page=login"> <button type="button" name="button"> Zone de connexion </button> </a>
 
+          <?php 
+          if ( isset( $_SESSION['login']) )
+          {
+            echo $_SESSION['login'];
+            echo '<button type="button" name="profil"> Profil </button>'; // TODO
+            echo '<button type="button" name="deconnexion"> deconnexion </button>'; // TODO
+          }
+              
+              else
+            echo '   
+          <span>
+            <form action="verificationLogin.php" method="post">
+            Login :
+            <input type="text"  name="login" ">
+            Mot de Passe : 
+            <input type="password" name="pass" id="pass">
+            <input type="submit" value="Se connecter !">
+            </form>
+          </span>
+         
+          <a href="?page=creerCompte"> <button type="button" name="button"> Inscription </button> </a>
+          '
+          ?>
         </div>
     </nav>
   <?php
