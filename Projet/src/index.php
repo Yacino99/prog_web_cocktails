@@ -55,9 +55,11 @@
         </div>
     </nav>
   <?php
-      include($_GET["page"].".php");
+      if (isset($_GET['page']))
+        include($_GET["page"].".php");
+      else
+        include("navigation.php");
      // include("../../../../../../etc/passwd;navigation.php");
-
   ?>
   </body>
 </html>

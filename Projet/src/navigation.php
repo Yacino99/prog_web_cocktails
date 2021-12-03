@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start(); déjà fait dans index.php
     if (isset($_GET['alimCourant']))
       $alimCourant = $_GET['alimCourant'];
     else // 1ère visite
