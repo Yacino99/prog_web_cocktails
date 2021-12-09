@@ -7,10 +7,9 @@
 ?>
 
 <div class="body border row">
+  <div class="navigationGauche border col-auto">
 
-        <div class="navigationGauche border col-auto">
-
-          <h3>Aligment Courant</h3>
+      <h3>Aligment Courant</h3>
 
           <span>
             <?php
@@ -98,29 +97,37 @@
                 return $string;
               };
 
-              // Ici on affiche les recettes qu'on vient de sélectionner :
-              foreach($res as $Recette) {
-                $nomFichier = traitementNomFichier($Recette['titre']);
-                if (!file_exists("../Photos/".$nomFichier))
-                  $nomFichier = "cocktail.png";
-                echo "
-                  <div class=\"boisson border col-auto\">
-                  <h5>".$Recette['titre']."</h5>
-                  <img src=\"une iamge de coeur a recup sur le net\" alt=\"coeur\">
-                  <img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
-                ";
-                echo "<ul>";
-                foreach($Recette['index'] as $num => $ingredient) {
-                  echo "<li>".$ingredient."</li>";
-                }
-                echo "</ul>";
-                echo "</div>";  
+              // ----------------- AFFICHAGE : -----------------
+              if (isset($_GET['recette'])) { // on affiche la recette détaillée sur laquelle on vient de cliquer
+                  $nomCocktail = $_GET['recette'];
+                  $fichier = traitementNomFichier($nomCocktail);
+                  if (!file_exists("../Photos/".$fichier))
+                    $fichier = "cocktail.png";
+                  include("recette.php");
               }
+              else { // ici on affiche les recettes sélectionnée à l'aide du menu :
+                foreach($res as $Recette) {
+                  $nomFichier = traitementNomFichier($Recette['titre']);
+                  if (!file_exists("../Photos/".$nomFichier))
+                    $nomFichier = "cocktail.png";
+                  echo "
+                    <div class=\"boisson border col-auto\">
+                    <img src=\"une image de coeur a recup sur le net\" alt=\"coeur\">
+                    <h5><a href=\"?recette=".$Recette['titre']."\">".$Recette['titre']."</a></h5>
+                    <img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
+                  ";
+                  echo "<ul>";
+                  foreach($Recette['index'] as $num => $ingredient) {
+                    echo "<li>".$ingredient."</li>";
+                  }
+                  echo "</ul>";
+                  echo "</div>";  
+                }
+              }
+
             ?>
           </div>
 
         </div>
-
-      </div>
-
-    </div>
+  </div>
+</div>

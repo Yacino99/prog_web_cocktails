@@ -59,7 +59,7 @@
         include($_GET["page"].".php");
       else
         include("navigation.php");
-     // include("../../../../../../etc/passwd;navigation.php");
+      // include("../../../../../../etc/passwd;navigation.php");
   ?>
   </body>
 </html>
