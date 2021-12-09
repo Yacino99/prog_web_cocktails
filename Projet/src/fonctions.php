@@ -1,59 +1,22 @@
 <?php
 
-function emailExist($email)  // verifie si l'email existe  fichier type --> email login mdp nom prenom
+function emailExist($lemail)  // verifie si l'email existe  fichier type --> email login mdp nom prenom
 {
-  if (! file_exists("users.txt"))
+  if (! file_exists('./emails/'.$lemail.'.txt'))
       return false;
-
-  $handle = fopen("users.txt", "r");
-
-  if ($handle) {
-    while (($line = fgets($handle)) !== false) {
-        // process the line read.
-        $arrayString =  explode(" ", $line ); // split string with space (white space) as a delimiter.
-
-      if($email === trim($arrayString[0]) )
-      {
-        fclose($handle);
-        return true;
-      }
-
-    }
-
-    fclose($handle);
-
-
-  }
-    return false;
+  
+  else return true;
+    
 }
 
 
 function loginExist($login)   // verifie si le login existe  fichier type --> email login mdp nom prenom
 {
-  if (! file_exists("users.txt"))
+  if (! file_exists('./users/'.$login.'.txt'))
       return false;
+  
+  else return true;
 
-  $handle = fopen("users.txt", "r");
-
-  if ($handle) {
-    while (($line = fgets($handle)) !== false) {
-        // process the line read.
-        $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
-
-      if($login === trim($arrayString[1]) )
-      {
-        fclose($handle);
-        return true;
-      }
-
-    }
-
-
-  }
-
-  fclose($handle);
-
-  return false;
 }
 
 function estVide($mot)
@@ -63,22 +26,20 @@ function estVide($mot)
 
 function mdpCorrect($login , $mdp)
 {
-  $handle = fopen("users.txt", "r");
+  $handle = fopen("./users/".$login.".txt", "r");
 
   if ($handle)
    {
-            while (($line = fgets($handle)) !== false)
-            {
-            // process the line read.
-              $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
 
-              if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2]))
-              {
-                fclose($handle);
-                return true;
-              }
+      $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
+      // process the line read.
+      $arrayString = explode(" ", $line ); // split string with space (white space) as a delimiter.
 
-            }
+      if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2]))
+      {
+        fclose($handle);
+        return true;
+      }
     }
 
     fclose($handle);
@@ -88,25 +49,7 @@ function mdpCorrect($login , $mdp)
 
 function getNom($login , $fichier)
 {
-    $fp = fopen($fichier,'r') or die("on peut aps ouvrir le fichier");
-
-    if($fp)
-    {
-        while (($line = fgets($fp)) !== false)
-        {
-            // process the line read.
-            $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
-
-            if($login === trim($arrayString[1]) )
-            {
-                fclose($fp);
-                return $arrayString[3];
-            }
-
-        }
-    }
-
-    fclose($fp);
+    
     return " ";
 }
 
@@ -114,50 +57,14 @@ function getNom($login , $fichier)
 
 function getPrenom($login , $fichier)
 {
-    $fp = fopen($fichier,'r') or die("on peut aps ouvrir le fichier");
-
-    if($fp)
-    {
-        while (($line = fgets($fp)) !== false)
-        {
-            // process the line read.
-            $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
-
-            if($login === trim($arrayString[1]) )
-            {
-                fclose($fp);
-                return $arrayString[4];
-            }
-
-        }
-    }
-
-    fclose($fp);
+   
     return " ";
 
 }
 
 function getEmail($login , $fichier)
 {
-    $fp = fopen($fichier,'r') or die("on peut aps ouvrir le fichier");
-
-    if($fp)
-    {
-        while (($line = fgets($fp)) !== false)
-        {
-            // process the line read.
-            $arrayString=  explode(" ", $line ); // split string with space (white space) as a delimiter.
-
-            if($login === trim($arrayString[1]) )
-            {
-                fclose($fp);
-                return $arrayString[0];
-            }
-
-        }
-    }
-
-    fclose($fp);
+    
     return " ";
 }
 

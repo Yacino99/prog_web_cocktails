@@ -55,7 +55,7 @@
     </div>
 
     <label for="tel"><b>Telephone</b></label>
-    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0[0-9]{9}" > <br>
+    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0([0-9]{9})" > <br>
 
 
      <label for="Email"><b>Email</b></label>

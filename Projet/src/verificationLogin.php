@@ -39,7 +39,7 @@ $box="
 
 
 include_once 'fonctions.php';
-
+/*
 if (! file_exists("users.txt") )
 {
     echo "$html";
@@ -47,25 +47,41 @@ if (! file_exists("users.txt") )
     echo "$box";
 
 }
-elseif (! loginExist($_POST['login'])) {
+*/
+
+if (! loginExist(trim($_POST['login']))) {
 
     echo "$html";
     echo "$titre";
     echo "$box";
 
 }
-elseif (mdpCorrect($_POST['login'] , $_POST['pass'])) {
+elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
 
+  $handle = fopen("./users/".$_POST['login'].".txt", "r") or die("cannot open file ");
 
-    $nom = getNom($_POST['login'] , 'users.txt');
-    $prenom = getPrenom($_POST['login'] , 'users.txt');
-    $email = getEmail($_POST['login'] , 'users.txt');
+  if ($handle)
+   {
 
-    $_SESSION['login'] = $_POST['login'];
-    $_SESSION['email'] = $email;
-    $_SESSION['pass'] = $_POST['pass'];
-    $_SESSION['nom'] = $nom;
-    $_SESSION['prenom'] = $prenom;
+      $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
+      // process the line read.
+      $tabUser = explode(" ", $line ); // split string with space (white space) as a delimiter.
+
+      
+      $_SESSION['login'] = trim($tabUser[1]);
+      $_SESSION['email'] = trim($tabUser[0]);
+      $_SESSION['pass'] = trim($tabUser[2]);
+      $_SESSION['nom'] = trim($tabUser[3]);
+      $_SESSION['prenom'] = trim($tabUser[4]);
+      $_SESSION['sexe'] = trim($tabUser[5]);
+      $_SESSION['naissance'] = trim($tabUser[6]);
+      $_SESSION['ville'] = trim($tabUser[7]);
+      $_SESSION['poste'] = trim($tabUser[8]);
+      $_SESSION['adresse'] = trim($tabUser[9]);
+      $_SESSION['tel'] = trim($tabUser[10]);
+    }
+
+    fclose($handle);
 
   header("Location: index.php");
 }

@@ -61,15 +61,21 @@ if(!isset($_POST['adresse']) || estVide($_POST['adresse']) )
 if(!isset($_POST['tel']) || estVide($_POST['tel']) )
     $_POST['tel']=";";    
 
-if(isset( $_POST['tel']) )
+if(isset( $_POST['naissance']) )
 {
   //---TODO : verifier qu'il est majeur
 }
 
 
-if (! file_exists("users.txt") )
+$monf = "./users/".trim($_POST['login']).'.txt';
+
+if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 {
-  $myfile = fopen("users.txt", "w") or die("Unable to open file!");
+  $myfile = fopen($monf, "w") or die("Unable to open file!");
+  $myfile2 = fopen("./emails/".trim($_POST['email']).'.txt', "w") or die("Unable to open file!");
+  
+  fwrite($myfile2," ");
+  fclose($myfile2);
 
   fwrite($myfile, trim( $_POST['email']) );      // email login mdp nom prenom sexe naissance ville poste adresse tel
   fwrite($myfile, " ");
@@ -109,27 +115,27 @@ if (! file_exists("users.txt") )
 
     fwrite($myfile, " ".PHP_EOL);
 
-  $_SESSION['login'] = $_POST['login'];
-  $_SESSION['email'] = $_POST['email'];
-  $_SESSION['pass'] = $_POST['pass'];
-  $_SESSION['nom'] = $_POST['nom'];
-  $_SESSION['prenom'] = $_POST['prenom'];
-  $_SESSION['sexe'] = $_POST['sexe'];
-  $_SESSION['naissance'] = $_POST['naissance'];
-  $_SESSION['adresse'] = $_POST['adresse'];
-  $_SESSION['poste'] = $_POST['poste'];
-  $_SESSION['ville'] = $_POST['ville'];
-  $_SESSION['tel'] = $_POST['tel'];
+  $_SESSION['login'] = trim($_POST['login']);
+  $_SESSION['email'] = trim($_POST['email']);
+  $_SESSION['pass'] = trim($_POST['pass']);
+  $_SESSION['nom'] = trim($_POST['nom']);
+  $_SESSION['prenom'] = trim($_POST['prenom']);
+  $_SESSION['sexe'] = trim($_POST['sexe']);
+  $_SESSION['naissance'] = trim($_POST['naissance']);
+  $_SESSION['adresse'] = trim($_POST['adresse']);
+  $_SESSION['poste'] = trim($_POST['poste']);
+  $_SESSION['ville'] = trim($_POST['ville']);
+  $_SESSION['tel'] = trim($_POST['tel']);
 
   fclose($myfile);
 
   header("Location: index.php");
 
-}elseif (emailExist($_POST['email'])) {
+}elseif ( emailExist( trim($_POST['email']) ) ) {
 
   //echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";
 
-  echo "$debutHtmlEtStyle";
+  echo "$debutHtmlEtStyle" ;
   echo "<h2 style='color:red'>Erreur Email deja existant</h2>";
 
   echo "<div class='center'>
@@ -139,7 +145,7 @@ if (! file_exists("users.txt") )
 
   echo "$finhtml";
 
-}elseif(loginExist($_POST['login']))
+}elseif(loginExist ( trim($_POST['login']) ) )
 {
 
   echo "$debutHtmlEtStyle";
@@ -153,102 +159,6 @@ if (! file_exists("users.txt") )
 
     echo "$finhtml";
 
-}
-else {
-
-  $myfile = fopen("users.txt", "a") or die("Unable to open file!");
-
-  fwrite($myfile, trim($_POST['email']) );      // email login mdp nom prenom sexe naissance ville poste adresse tel
-  fwrite($myfile, " ");
-
-  fwrite($myfile, trim( $_POST['login']) );
-  fwrite($myfile, " ");
-
-    fwrite($myfile, trim($_POST['pass']) );
-    fwrite($myfile, " ");
-
-
-    fwrite($myfile, trim( $_POST['nom']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['prenom']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['sexe']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['naissance']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['ville']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['poste']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['adresse']) );
-    fwrite($myfile, " ");
-
-    fwrite($myfile, trim( $_POST['tel']) );
-    fwrite($myfile, " ");
-
-
-  fwrite($myfile, " ".PHP_EOL);
-
-  fclose($myfile);
-
-  $_SESSION['login'] = $_POST['login'];
-  $_SESSION['email'] = $_POST['email'];
-  $_SESSION['pass'] = $_POST['pass'];
-  $_SESSION['nom'] = $_POST['nom'];
-  $_SESSION['prenom'] = $_POST['prenom'];
-  $_SESSION['sexe'] = $_POST['sexe'];
-  $_SESSION['naissance'] = $_POST['naissance'];
-  $_SESSION['adresse'] = $_POST['adresse'];
-  $_SESSION['poste'] = $_POST['poste'];
-  $_SESSION['ville'] = $_POST['ville'];
-  $_SESSION['tel'] = $_POST['tel'];
-
-
-  $pf = fopen('users/'.$_SESSION['login'].'.txt', "w") or die("Unable to open file!");
-
-  fwrite($pf, trim($_POST['email']) );      // email login mdp nom prenom sexe naissance ville poste adresse tel
-  fwrite($pf, " ");  
-
-  fwrite($pf, trim( $_POST['login']) );
-  fwrite($pf, " ");
-
-    fwrite($pf, trim($_POST['pass']) );
-    fwrite($pf, " ");
-
-
-    fwrite($pf, trim( $_POST['nom']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['prenom']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['sexe']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['naissance']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['ville']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['poste']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['adresse']) );
-    fwrite($pf, " ");
-
-    fwrite($pf, trim( $_POST['tel']) );
-    fwrite($pf, " ");
-
-  fclose($pf);
-
-  header("Location: index.php");
 }
 
   ?>
