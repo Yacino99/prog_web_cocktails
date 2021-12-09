@@ -86,42 +86,46 @@
   var utilisateurs = "";
 
 
-  const loginExsistant = function(text) // savoir si le login exist
-  {
+function checkFileExist(fileurl)
+{
+  var xhr = new XMLHttpRequest();
+  xhr.open('HEAD',fileurl,false);
+  xhr.send();
 
-    lineArray = text.split("\n");
-
-
-    let existe = false;
-
-    login.addEventListener("keyup", function( event ) {
-
-
-      for(i = 0 ; i < lineArray.length-1 ; i++){
-
-
-        mots = lineArray[i].split(" ");
-
-        if(login.value == mots[1] ) {existe = true; break; } else { existe=false; }
-    }
-        console.log(existe);
-        if(login.value === mots[1])
-        {
-          btn.disabled=true ; btn.className = "redButton" ;btn.innerHTML="Pas de creation de compte"; warn.style.display = "block"; return;
-        }else {
-           btn.disabled=false; btn.className = "";btn.innerHTML="Creer le compte !"; warn.style.display = "none"; return;
-        }
-
-    } )
-
-
+  if(xhr.status == 404)
+    return false;
+  else
+    return true;
 }
 
-fetch('users.txt')
-.then(response => response.text())
-.then(text => loginExsistant(text)
+function ilExiste(){
+  btn.disabled=true ; 
+  btn.className = "redButton" ;
+  btn.innerHTML="Pas de creation de compte";
+   warn.style.display = "block";
+  return;
+}
 
-)
+function ilExistePas(){
+  btn.disabled=false; 
+  btn.className = "";
+  btn.innerHTML="Creer le compte !"; 
+  warn.style.display = "none"; 
+  return;
+}
+
+login.addEventListener("keyup", function( event ) {
+
+  console.log("okay");
+
+  fichier = "./users/"+login.value+".txt"
+
+  console.log(fichier);
+
+  if(checkFileExist(fichier)) ilExiste();
+  else ilExistePas();
+});
+ 
 
 naissance = document.getElementById("naissance");
 
