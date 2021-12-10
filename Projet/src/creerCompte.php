@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>Creer votre compte</title>
-  <link rel="stylesheet" href="style.css">
- <!-- <script src="script.js"></script> -->
+  <!-- <link rel="stylesheet" href="style.css">-->
+  <!-- <script src="script.js"></script> -->
 </head>
 <body>
 
 <h2>Inscrivez vous </h2>
 
 <form action="verificationSignup.php" method="post">
+  <!--
   <div class="imgcontainer">
     <img src="barPic.png" alt="Avatar" class="avatar">
   </div>
+  -->
 
   <div class="container">
     <label for="nom"><b>Nom</b></label>
