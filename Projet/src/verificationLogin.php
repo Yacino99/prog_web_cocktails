@@ -58,7 +58,7 @@ if (! loginExist(trim($_POST['login']))) {
 }
 elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
 
-  $handle = fopen("./users/".$_POST['login'].".txt", "r") or die("cannot open file ");
+  $handle = fopen("../users/".$_POST['login'].".txt", "r") or die("cannot open file ");
 
   if ($handle)
    {

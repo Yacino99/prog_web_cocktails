@@ -2,7 +2,7 @@
 
 function emailExist($lemail)  // verifie si l'email existe  fichier type --> email login mdp nom prenom
 {
-  if (! file_exists('./emails/'.$lemail.'.txt'))
+  if (! file_exists('../emails/'.$lemail.'.txt'))
       return false;
   
   else return true;
@@ -12,7 +12,7 @@ function emailExist($lemail)  // verifie si l'email existe  fichier type --> ema
 
 function loginExist($login)   // verifie si le login existe  fichier type --> email login mdp nom prenom
 {
-  if (! file_exists('./users/'.$login.'.txt'))
+  if (! file_exists('../users/'.$login.'.txt'))
       return false;
   
   else return true;
@@ -26,7 +26,7 @@ function estVide($mot)
 
 function mdpCorrect($login , $mdp)
 {
-  $handle = fopen("./users/".$login.".txt", "r");
+  $handle = fopen("../users/".$login.".txt", "r");
 
   if ($handle)
    {
