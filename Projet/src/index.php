@@ -21,7 +21,7 @@
   <div class="navigationHaut border">
 
     <a href="?page=navigation"><button>Navigation</button></a>
-    <a href="?page=navigation"><button>Recettes</button></a>
+    <a href="?page=navigation"><button>Recettes <img height="20" width="20" src="../Photos/coeur_plein.png"/></button></a>
   <!--  <a href="?page=recherche"> Recherche </a>  -->
 
     <span>
@@ -34,7 +34,7 @@
     if ( isset( $_SESSION['login']) )
     {
       echo $_SESSION['login'];
-      echo '<button type="button" name="profil"> Profil </button>'; // TODO
+      echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; // TODO
       echo '<button type="button" name="deconnexion"> deconnexion </button>'; // TODO
     }
     else
@@ -113,3 +113,63 @@
 
 </body>
 </html>
+
+
+<script type="text/javascript">
+
+  var coeur = document.getElementById("coeur");
+
+  coeur.addEventListener("mouseover", function(e) {
+    console.log("je suis dessus");
+    coeur.src="../Photos/coeur_plein.png";
+  });
+
+  coeur.addEventListener("mouseleave", function(e) {
+    console.log("je ne suis plus dessus");
+    coeur.src="../Photos/coeur.png";
+  });
+
+  /* Version avec id multiples
+  var i=0;
+  while(document.getElementById("coeur"+i) != null) {
+    document.getElementById("coeur"+i).addEventListener("mouseover", function(e) {
+      document.getElementById("coeur"+i).src = "../Photos/coeur.png";
+      //console.log(elem.src);
+    });
+    document.getElementById("coeur"+i).addEventListener("mouseleave", function(e) {
+      //console.log("s'en va");
+      document.getElementById("coeur"+i).src = "../Photos/coeur.png";
+    });
+    i++;
+  }
+  */
+
+  /* Version avec une classe
+  var elements = document.getElementsByClassName("coeur");
+  console.log(elements.length);
+  for(i=0; i<elements.length; i++) {
+    //elements[i].src = "../Photos/coeur_plein.png"; fonctionne
+    elements[i].addEventListener("mouseover", function(e) {
+      elements[i].src = "../Photos/coeur.png";
+      //console.log(elem.src);
+    });
+    elements[i].addEventListener("mouseleave", function(e) {
+      //console.log("s'en va");
+      elements[i].src = "../Photos/coeur.png";
+    });
+  }
+  */
+
+  /* Version avec querySelectorAll
+  elements = document.querySelectorAll(".coeur");
+  elements.forEach(element=>{
+      element.addEventListener("mouseover", function(e) {
+        element.src = "../Photos/coeur_plein.png";
+      });
+      element.addEventListener("mouseleave", function(e) {
+        element.src = "../Photos/coeur.png";
+    });
+  })
+  */
+
+</script>

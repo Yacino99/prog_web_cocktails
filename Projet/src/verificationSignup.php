@@ -27,10 +27,10 @@ $finhtml = "
 ";
 
 if(!isset($_POST['email']) || estVide($_POST['email']) )
-    echo "Vous avez mal renseigné votre email , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
+    echo "Vous avez mal renseigné votre email , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['pass']) || estVide($_POST['pass']) )
-    echo "Vous avez mal renseigné votre mot de passe , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
+    echo "Vous avez mal renseigné votre mot de passe , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['nom']) || estVide($_POST['nom']) )
     //echo "Vous avez mal renseigné votre nom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
