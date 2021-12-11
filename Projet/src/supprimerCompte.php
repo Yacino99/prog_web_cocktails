@@ -18,6 +18,8 @@ elseif (!unlink($fichierEmail)) {
 }
 
 else{
+
+    //--suppression de la session 
     session_destroy();
 
     header("Location: index.php");
