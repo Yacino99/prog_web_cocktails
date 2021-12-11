@@ -74,6 +74,8 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   $myfile = fopen($monf, "w") or die("Unable to open file!");
   $myfile2 = fopen("../emails/".trim($_POST['email']).'.txt', "w") or die("Unable to open file!");
   
+
+
   fwrite($myfile2," ");
   fclose($myfile2);
 

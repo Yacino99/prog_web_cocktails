@@ -34,8 +34,10 @@
     if ( isset( $_SESSION['login']) )
     {
       echo $_SESSION['login'];
-      echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; // TODO
-      echo '<button type="button" name="deconnexion"> deconnexion </button>'; // TODO
+      echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; 
+      echo '
+      <a href="deconnexion.php"><button type="button" name="profil"> Deconnexion </button></a>
+      '; 
     }
     else
       echo '   
@@ -117,36 +119,24 @@
 <script type="text/javascript">
   favori = 0;
   let heart = document.querySelectorAll(".heart");
-  for (let i = 0; i < heart.length; i++)
-  {
-      heart[i].addEventListener("mouseover", function() {
-        //if(favori % 2 != 0)
-        heart[i].src="../Photos/coeur_plein.png";
-     });
- }
-
- for (let i = 0; i < heart.length; i++)
- {
-     heart[i].addEventListener("mouseleave", function() {
-       //if(favori % 2 == 0 )
-        heart[i].src="../Photos/coeur.png";
-    });
- }
 
   for (let i = 0; i < heart.length; i++)
   {
       heart[i].addEventListener("click", function() {
-        //heart[i].src="../Photos/coeur.png";
-        /*
-        favori++;
-        if(favori % 2 == 0)
-          heart[i].src="../Photos/coeur.png";
+       
+        if(favori == 0)
+        {
+            heart[i].src="../Photos/coeur_plein.png";
+            favori++;
+        }
+            
         else
-          heart[i].src="../Photos/coeur_plein.png";
-
-        console.log(favori);
-        */
-        //console.log(heart[i].value);
+        {
+          heart[i].src="../Photos/coeur.png";
+          favori--;
+        }
+          
+         
      });
   }
 

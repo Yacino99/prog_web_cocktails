@@ -80,12 +80,28 @@ if(!isset($_SESSION['naissance']) || strcmp($_SESSION['naissance'],";") === 0 )
 </form>
 
 <br> <br>
-<form action="supprimerCompte.php">
 
+<form action="supprimerCompte.php" onsubmit="return confirmerSuppression(this);">
   
-<button type="submit" id="submit3">Supprimer le compte </button>
+
+<button type="submit"  style=" background: red; " id="submitSupprimer">Supprimer le compte </button>
 
 
 </form>
 
 </body>
+
+<script>
+
+  supprime = document.getElementById('submitSupprimer');
+
+  function confirmerSuppression(form) {
+
+        return confirm('Voulez-vous vraiment supprimer le compte ? ');
+  }
+
+  //-----TODO : faire les memes verifications que la cration de compte,  enfin pour les regex et les apparitions de div
+
+
+
+</script>
