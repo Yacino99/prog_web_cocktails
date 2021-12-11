@@ -1,4 +1,5 @@
 <?php
+    if (session_id() == '') file_put_contents("../favoris/user_favoris.txt", "", FILE_APPEND);
     session_start();
     if (isset($_GET['alimCourant']))
       $alimCourant = $_GET['alimCourant'];
@@ -21,7 +22,7 @@
   <div class="navigationHaut border">
 
     <a href="?page=navigation"><button>Navigation</button></a>
-    <a href="?page=navigation"><button>Recettes <img height="20" width="20" src="../Photos/coeur_plein.png"/></button></a>
+    <a href="?page=favoris"><button>Recettes <img height="20" width="20" src="../Photos/coeur_plein.png"/></button></a>
   <!--  <a href="?page=recherche"> Recherche </a>  -->
 
     <span>
@@ -133,20 +134,47 @@
     });
  }
 
+  function GetXmlHttpObject() {
+    var xmlhttpreq=null;
+    if(window.XMLHttpRequest) {
+      xmlhttpreq = new XMLHttpRequest(); }
+    else if(window.ActiveXObject) {
+      xmlhttpreq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return(xmlhttpreq);
+  }
+  var XmlHttp;
+  function stateChanged(image) {
+    //console.log("OK");
+    //image.src="../Photos/coeur_plein.png";
+    //console.log(image.src);
+    console.log(XmlHttp.responseText);
+    if(XmlHttp.readyState==4) {
+      console.log("OK");
+      image.src="../Photos/"+XmlHttp.responseText+".png";
+    }
+  }
+  function ajouterFavori(login, cocktail, image) {
+    XmlHttp=GetXmlHttpObject();
+    if(XmlHttp==null) alert("Objets HTTP non supportés");
+    else {
+      XmlHttp.onreadystatechange=stateChanged(image);
+      XmlHttp.open("GET","ajouterFavori.php?login="+login+"&cocktail="+cocktail,true);
+      XmlHttp.send(null);
+    }
+  }
+
   for (let i = 0; i < heart.length; i++)
   {
       heart[i].addEventListener("click", function() {
-        //heart[i].src="../Photos/coeur.png";
-        /*
-        favori++;
-        if(favori % 2 == 0)
-          heart[i].src="../Photos/coeur.png";
-        else
-          heart[i].src="../Photos/coeur_plein.png";
-
-        console.log(favori);
-        */
-        //console.log(heart[i].value);
+        //console.log("click");
+        var login = '<?php if (isset($_SESSION['login'])) echo $_SESSION['login'];
+                           else echo 'user'
+                      ?>';
+        var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
+        //console.log("login : " + login);
+        //console.log("cocktail : " + cocktail);
+        ajouterFavori(login, cocktail, heart[i]);
      });
   }
 

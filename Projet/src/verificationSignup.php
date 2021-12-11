@@ -131,6 +131,8 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 
   header("Location: index.php");
 
+  file_put_contents("../favoris/".$_SESSION['login']."_favoris.txt", ""); // on créer un fichier favoris à la création du compte
+
 }elseif ( emailExist( trim($_POST['email']) ) ) {
 
   //echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";
