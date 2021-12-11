@@ -7,7 +7,6 @@
 ?>
 
 <div class="listeCock col">
-  <h4>Liste des Cocktails</h4>
   <?php
     // Ici on sélectionne les recettes qui correspondent à l'aliment courant :
     $res = array();
@@ -37,7 +36,6 @@
       }
     }
   ?>
-
   <div class="row">
     <?php
       function traitementNomFichier($chaine) {
@@ -61,6 +59,7 @@
           include("recette.php");
       }
       else { // ici on affiche les recettes sélectionnée à l'aide du menu :
+        echo "<h4>Liste des Cocktails</h4>";
         foreach($res as $Recette) {
           $nomFichier = traitementNomFichier($Recette['titre']);
           if (!file_exists("../Photos/".$nomFichier))

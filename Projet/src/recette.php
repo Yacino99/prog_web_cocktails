@@ -3,7 +3,7 @@
     <div class="Affichage détaillé">
 
         <?php
-            echo "<h4>".$nomCocktail."</h4>";
+            echo "<a href=\"?page=navigation\"><button><img height=\"20\" width=\"20\" src=\"../Photos/flecheGauche.png\"></button></a><h4>Recette détaillée</h4>";
         ?>
 
         <div class="row">

@@ -114,67 +114,40 @@
 </body>
 </html>
 
-
-
-
 <script type="text/javascript">
-
-
-
   favori = 0;
-
-
   let heart = document.querySelectorAll(".heart");
-
   for (let i = 0; i < heart.length; i++)
   {
       heart[i].addEventListener("mouseover", function() {
-
-
         //if(favori % 2 != 0)
         heart[i].src="../Photos/coeur_plein.png";
      });
  }
 
-
-
  for (let i = 0; i < heart.length; i++)
  {
      heart[i].addEventListener("mouseleave", function() {
-
        //if(favori % 2 == 0 )
         heart[i].src="../Photos/coeur.png";
-
-
     });
  }
-
-
 
   for (let i = 0; i < heart.length; i++)
   {
       heart[i].addEventListener("click", function() {
         //heart[i].src="../Photos/coeur.png";
-
         /*
         favori++;
-
         if(favori % 2 == 0)
-
           heart[i].src="../Photos/coeur.png";
         else
           heart[i].src="../Photos/coeur_plein.png";
 
-
         console.log(favori);
-
         */
-
         //console.log(heart[i].value);
      });
   }
-
-
-
 
 </script>
