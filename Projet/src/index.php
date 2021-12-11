@@ -42,9 +42,9 @@
       <span>
         <form action="verificationLogin.php" method="post">
         Login :
-        <input type="text"  name="login" ">
+        <input type="text"  name="login" required>
         Mot de Passe : 
-        <input type="password" name="pass" id="pass">
+        <input type="password" name="pass" id="pass" required>
         <input type="submit" value="Se connecter !">
         </form>
       </span>
