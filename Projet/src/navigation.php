@@ -67,7 +67,7 @@
             $nomFichier = "cocktail.png";
           echo "
             <div class=\"boisson border col-auto\">
-            <h5><a href=\"?recette=".$Recette['titre']."\">".$Recette['titre']."</a> <a><img id=\"coeur\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
+            <h5><a href=\"?recette=".$Recette['titre']."\">".$Recette['titre']."</a> <a><img class='heart' id=\"coeurr\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
             <img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
           ";
           echo "<ul>";

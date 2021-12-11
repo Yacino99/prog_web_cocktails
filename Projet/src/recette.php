@@ -12,7 +12,7 @@
                     if ($Recette['titre']==$nomCocktail) {
                         echo "
                         <div class=\"boisson border col-auto\">
-                        <h5>".$nomCocktail." <a><img id=\"coeur\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
+                        <h5>".$nomCocktail." <a><img class='heart' id=\"coeur\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
                         <img src=\"../Photos/".$fichier."\" alt=\"boisson\" height=\"100\">
                         <p><strong>Ingrédients : </strong>".$Recette['ingredients']."</p>
                         <p><strong>Recette : </strong>".$Recette['preparation']."</p>

@@ -115,61 +115,66 @@
 </html>
 
 
+
+
 <script type="text/javascript">
 
-  var coeur = document.getElementById("coeur");
 
-  coeur.addEventListener("mouseover", function(e) {
-    console.log("je suis dessus");
-    coeur.src="../Photos/coeur_plein.png";
-  });
 
-  coeur.addEventListener("mouseleave", function(e) {
-    console.log("je ne suis plus dessus");
-    coeur.src="../Photos/coeur.png";
-  });
+  favori = 0;
 
-  /* Version avec id multiples
-  var i=0;
-  while(document.getElementById("coeur"+i) != null) {
-    document.getElementById("coeur"+i).addEventListener("mouseover", function(e) {
-      document.getElementById("coeur"+i).src = "../Photos/coeur.png";
-      //console.log(elem.src);
+
+  let heart = document.querySelectorAll(".heart");
+
+  for (let i = 0; i < heart.length; i++)
+  {
+      heart[i].addEventListener("mouseover", function() {
+
+
+        //if(favori % 2 != 0)
+        heart[i].src="../Photos/coeur_plein.png";
+     });
+ }
+
+
+
+ for (let i = 0; i < heart.length; i++)
+ {
+     heart[i].addEventListener("mouseleave", function() {
+
+       //if(favori % 2 == 0 )
+        heart[i].src="../Photos/coeur.png";
+
+
     });
-    document.getElementById("coeur"+i).addEventListener("mouseleave", function(e) {
-      //console.log("s'en va");
-      document.getElementById("coeur"+i).src = "../Photos/coeur.png";
-    });
-    i++;
+ }
+
+
+
+  for (let i = 0; i < heart.length; i++)
+  {
+      heart[i].addEventListener("click", function() {
+        //heart[i].src="../Photos/coeur.png";
+
+        /*
+        favori++;
+
+        if(favori % 2 == 0)
+
+          heart[i].src="../Photos/coeur.png";
+        else
+          heart[i].src="../Photos/coeur_plein.png";
+
+
+        console.log(favori);
+
+        */
+
+        //console.log(heart[i].value);
+     });
   }
-  */
 
-  /* Version avec une classe
-  var elements = document.getElementsByClassName("coeur");
-  console.log(elements.length);
-  for(i=0; i<elements.length; i++) {
-    //elements[i].src = "../Photos/coeur_plein.png"; fonctionne
-    elements[i].addEventListener("mouseover", function(e) {
-      elements[i].src = "../Photos/coeur.png";
-      //console.log(elem.src);
-    });
-    elements[i].addEventListener("mouseleave", function(e) {
-      //console.log("s'en va");
-      elements[i].src = "../Photos/coeur.png";
-    });
-  }
-  */
 
-  /* Version avec querySelectorAll
-  elements = document.querySelectorAll(".coeur");
-  elements.forEach(element=>{
-      element.addEventListener("mouseover", function(e) {
-        element.src = "../Photos/coeur_plein.png";
-      });
-      element.addEventListener("mouseleave", function(e) {
-        element.src = "../Photos/coeur.png";
-    });
-  })
-  */
+
 
 </script>
