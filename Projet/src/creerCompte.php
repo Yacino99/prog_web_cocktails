@@ -19,12 +19,23 @@
 
   <div class="container">
     <label for="nom"><b>Nom</b></label>
-    <input type="text" placeholder="Entrez votre Nom" name="nom" pattern="^[a-zA-Z0-9 \-']*$" >
+    <input type="text" placeholder="Entrez votre Nom" name="nom" pattern="^[a-zA-Z \-']*$" id="nom" >
+
+    <div class="alert" id="warnNom">
+      <p>Le nom doit etre composé de lettres minuscules et/ou de lettres MAJUSCULES, ainsi que les 
+          caractères « - », « » (espace) et « ' »   </p>
+    </div>
 
       <label for="prenom"><b>Prenom</b></label>
-      <input type="text" placeholder="Entrez votre Prenom" name="prenom" pattern="^[a-zA-Z0-9\-']*$" >
+      <input type="text" placeholder="Entrez votre Prenom" name="prenom" pattern="^[a-zA-Z \-']*$" id="prenom">
+        
+      <div class="alert" id="warnPrenom">
+      <p>Le Prenom doit etre composé de lettres minuscules et/ou de lettres MAJUSCULES, ainsi que les 
+          caractères « - », « » (espace) et « ' »   </p>
+    </div>
 
-    <p>Sexe :</p>
+      <p> <strong >Sexe : </strong> </p>
+
 
     <input type="radio" 
      name="sexe" value="homme">
@@ -51,13 +62,19 @@
 
     <label for="uname"><b>Login</b></label>
     <input type="text" placeholder="Entrez votre Login" name="login" id="login" required pattern="^[a-zA-Z0-9_]*$">
-
+    <br>
     <div class="alert" id="warn">
       <p>Login deja existant ! choisissez un autre </p>
     </div>
 
     <label for="tel"><b>Telephone</b></label>
-    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0([0-9]{9})" > <br>
+    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0([0-9]{9})" id="numTel"> <br>
+
+    <div class="alert" id="warnTel">
+      <p>Le numéro de téléphone est limité aux numéros français standards ; il commence par 0 et est suivi de 9 chiffres.
+     </p>
+
+    </div>
 
 
      <label for="Email"><b>Email</b></label>
@@ -83,9 +100,105 @@
 
   btn = document.getElementById("submit");
   login = document.getElementById('login');
+  nom= document.getElementById('nom');
+  prenom  =document.getElementById('prenom');
+  tel = document.getElementById('numTel');
+
+
   warn = document.getElementById('warn');
   warn.style.display = "none";
+
+  warnNom = document.getElementById('warnNom');
+  warnNom.style.display = "none";
+  
+  warnPrenom = document.getElementById('warnPrenom');
+  warnPrenom.style.display = "none";
+  
+  warnTel = document.getElementById('warnTel');
+  warnTel.style.display = "none";
+  
+
+ 
   var utilisateurs = "";
+
+  function verifierRegex(texte , regex , id) // texte : texte  tester la regex | regex : la regex | id : id du warn
+  {
+    if(/regex/.test(texte) == false)
+    {
+      btn.disabled=true ; 
+      btn.innerHTML="Pas de creation de compte";
+      id.style.display = "block";
+      
+    }
+    else
+    {
+      btn.disabled=false; 
+      btn.innerHTML="Creer le compte";
+      id.style.display = "none";
+       
+    }
+  }
+
+
+
+tel.addEventListener('keyup',function(e){
+
+  if(/^0([0-9]{9})/.test(tel.value) == false)
+  {
+    btn.disabled=true ; 
+    btn.innerHTML="Pas de creation de compte";
+    warnTel.style.display = "block";
+  }
+    
+  else
+    {
+      btn.disabled=false; 
+      btn.innerHTML="Creer le compte";
+      warnTel.style.display = "none";
+       
+    }
+} );
+
+
+nom.addEventListener('keyup',function(e){
+
+if(/^([a-zA-Z]|[a-zA-Z]\-[a-zA-Z]|[a-zA-Z]'[a-zA-Z]|[a-zA-Z]'[a-zA-Z]-[a-zA-Z]'[a-zA-Z]|[a-zA-Z] [a-zA-Z])*$/.test(nom.value) == false)
+{
+  console.log("non");
+  btn.disabled=true ; 
+  btn.innerHTML="Pas de creation de compte";
+  warnNom.style.display = "block";
+}
+  
+else
+  {
+    console.log("oui");
+    btn.disabled=false; 
+    btn.innerHTML="Creer le compte";
+    warnNom.style.display = "none";
+     
+  }
+} );
+
+prenom.addEventListener('keyup',function(e){
+
+if(/^([a-zA-Z]|[a-zA-Z]\-[a-zA-Z]|[a-zA-Z]'[a-zA-Z]|[a-zA-Z]'[a-zA-Z]-[a-zA-Z]'[a-zA-Z]|[a-zA-Z] [a-zA-Z])*$/.test(prenom.value) == false)
+{
+  console.log("non");
+  btn.disabled=true ; 
+  btn.innerHTML="Pas de creation de compte";
+  warnPrenom.style.display = "block";
+}
+  
+else
+  {
+    console.log("oui");
+    btn.disabled=false; 
+    btn.innerHTML="Creer le compte";
+    warnPrenom.style.display = "none";
+     
+  }
+} );
 
 
 function checkFileExist(fileurl)
@@ -129,7 +242,7 @@ login.addEventListener("keyup", function( event ) {
 });
  
 
-naissance = document.getElementById("naissance");
+naissance = document.getElementById("naissance");  // verification de la date
 
 var aujourdhui = new Date();
 var cetteAnnee = aujourdhui.getFullYear();
@@ -147,6 +260,9 @@ var ladate = naissance.value.split('-');
     btn.disabled=false;
 
 }
+
+
+
 
   </script>
 
