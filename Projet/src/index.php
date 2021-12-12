@@ -1,4 +1,5 @@
 <?php
+    if (session_id() == '') file_put_contents("../favoris/user_favoris.txt", "", FILE_APPEND);
     session_start();
     if (isset($_GET['alimCourant']))
       $alimCourant = $_GET['alimCourant'];
@@ -21,7 +22,7 @@
   <div class="navigationHaut border">
 
     <a href="?page=navigation"><button>Navigation</button></a>
-    <a href="?page=navigation"><button>Recettes <img height="20" width="20" src="../Photos/coeur_plein.png"/></button></a>
+    <a href="?page=favoris"><button>Recettes <img height="20" width="20" src="../Photos/coeur_plein.png"/></button></a>
   <!--  <a href="?page=recherche"> Recherche </a>  -->
 
     <span>
@@ -120,24 +121,76 @@
   favori = 0;
   let heart = document.querySelectorAll(".heart");
 
-  for (let i = 0; i < heart.length; i++)
-  {
+  function GetXmlHttpObject() {
+    var xmlhttpreq=null;
+    if(window.XMLHttpRequest) {
+      xmlhttpreq = new XMLHttpRequest(); }
+    else if(window.ActiveXObject) {
+      xmlhttpreq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return(xmlhttpreq);
+  }
+  var XmlHttp;
+  var imageCoeur; // variable globale pour que ajouterFavoris puisse la modifier et stateChanged puisse l'utiliser sans avoir à
+                  // le passer en parametre
+  function stateChanged() {
+    if(XmlHttp.readyState==4) {
+      console.log("stateChanged : XmlHttp.responseText = " + XmlHttp.responseText);
+      //console.log("stateChanged : " + imageCoeur.src);
+      imageCoeur.src="../Photos/"+XmlHttp.responseText+".png";
+    }
+  }
+  function ajouterFavori(login, cocktail, image) {
+    XmlHttp=GetXmlHttpObject();
+    if(XmlHttp==null) alert("Objets HTTP non supportés");
+    else {
+      imageCoeur = image; // on màj la var globale pour que stateChanged puisse l'utiliser
+      XmlHttp.onreadystatechange=stateChanged;
+      XmlHttp.open("GET","ajouterFavori.php?login="+login+"&cocktail="+cocktail,true);
+      XmlHttp.send(null);
+    }
+  }
+  for (let i = 0; i < heart.length; i++) {
       heart[i].addEventListener("click", function() {
-       
-        if(favori == 0)
-        {
-            heart[i].src="../Photos/coeur_plein.png";
-            favori++;
-        }
-            
-        else
-        {
-          heart[i].src="../Photos/coeur.png";
-          favori--;
-        }
-          
-         
+        //console.log("click");
+        var login = '<?php if (isset($_SESSION['login'])) echo $_SESSION['login'];
+                           else echo 'user';
+                      ?>';
+        var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
+        console.log("login : " + login);
+        console.log("cocktail : " + cocktail);
+        ajouterFavori(login, cocktail, heart[i]);
      });
+  }
+
+
+  // ------------ Mettre les coeurs rouge par défaut aux favoris ------------
+  var XmlHttp2;
+  var imageCoeur2; // variable globale pour que estFavori puisse la modifier et stateChanged2 puisse l'utiliser sans avoir à
+                   // le passer en parametre
+  function stateChanged2() {
+    if(XmlHttp2.readyState==4) {
+      console.log("stateChanged2 : XmlHttp.responseText = " + XmlHttp2.responseText);
+      imageCoeur2.src="../Photos/"+XmlHttp2.responseText+".png";
+    }
+  }
+  function estFavori(login, cocktail, image) {
+    XmlHttp2=GetXmlHttpObject();
+    if(XmlHttp2==null) alert("Objets HTTP non supportés");
+    else {
+      imageCoeur2 = image; // on màj la var globale pour que stateChanged2 puisse l'utiliser
+      XmlHttp2.onreadystatechange=stateChanged2;
+      XmlHttp2.open("GET","estFavori.php?login="+login+"&cocktail="+cocktail,false); // false => synchrone
+      XmlHttp2.send(null);
+    }
+  }
+  for (let i = 0; i < heart.length; i++) {
+    var login = '<?php if (isset($_SESSION['login'])) echo $_SESSION['login'];
+                       else echo 'user';
+                 ?>';
+    var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
+    console.log("Parcours : "+cocktail);
+    estFavori(login, cocktail, heart[i]); // on traite tous les coeurs de la page sans condition
   }
 
 </script>

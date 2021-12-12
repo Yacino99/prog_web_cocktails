@@ -61,7 +61,7 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
   $handle = fopen("../users/".$_POST['login'].".txt", "r") or die("cannot open file ");
 
   if ($handle)
-   {
+  {
 
       $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
       // process the line read.
@@ -79,11 +79,12 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
       $_SESSION['poste'] = trim($tabUser[8]);
       $_SESSION['adresse'] = trim($tabUser[9]);
       $_SESSION['tel'] = trim($tabUser[10]);
-    }
+  }
 
-    fclose($handle);
+  fclose($handle);
 
   header("Location: index.php");
+  
 }
 else {
 
