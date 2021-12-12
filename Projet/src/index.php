@@ -35,8 +35,10 @@
     if ( isset( $_SESSION['login']) )
     {
       echo $_SESSION['login'];
-      echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; // TODO
-      echo '<button type="button" name="deconnexion"> deconnexion </button>'; // TODO
+      echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; 
+      echo '
+      <a href="deconnexion.php"><button type="button" name="profil"> Deconnexion </button></a>
+      '; 
     }
     else
       echo '   
@@ -118,21 +120,6 @@
 <script type="text/javascript">
   favori = 0;
   let heart = document.querySelectorAll(".heart");
-  for (let i = 0; i < heart.length; i++)
-  {
-      heart[i].addEventListener("mouseover", function() {
-        //if(favori % 2 != 0)
-        heart[i].src="../Photos/coeur_plein.png";
-     });
- }
-
- for (let i = 0; i < heart.length; i++)
- {
-     heart[i].addEventListener("mouseleave", function() {
-       //if(favori % 2 == 0 )
-        heart[i].src="../Photos/coeur.png";
-    });
- }
 
   function GetXmlHttpObject() {
     var xmlhttpreq=null;
@@ -144,38 +131,66 @@
     return(xmlhttpreq);
   }
   var XmlHttp;
-  function stateChanged(image) {
-    //console.log("OK");
-    //image.src="../Photos/coeur_plein.png";
-    //console.log(image.src);
-    console.log(XmlHttp.responseText);
+  var imageCoeur; // variable globale pour que ajouterFavoris puisse la modifier et stateChanged puisse l'utiliser sans avoir à
+                  // le passer en parametre
+  function stateChanged() {
     if(XmlHttp.readyState==4) {
-      console.log("OK");
-      image.src="../Photos/"+XmlHttp.responseText+".png";
+      console.log("stateChanged : XmlHttp.responseText = " + XmlHttp.responseText);
+      //console.log("stateChanged : " + imageCoeur.src);
+      imageCoeur.src="../Photos/"+XmlHttp.responseText+".png";
     }
   }
   function ajouterFavori(login, cocktail, image) {
     XmlHttp=GetXmlHttpObject();
     if(XmlHttp==null) alert("Objets HTTP non supportés");
     else {
-      XmlHttp.onreadystatechange=stateChanged(image);
+      imageCoeur = image; // on màj la var globale pour que stateChanged puisse l'utiliser
+      XmlHttp.onreadystatechange=stateChanged;
       XmlHttp.open("GET","ajouterFavori.php?login="+login+"&cocktail="+cocktail,true);
       XmlHttp.send(null);
     }
   }
-
-  for (let i = 0; i < heart.length; i++)
-  {
+  for (let i = 0; i < heart.length; i++) {
       heart[i].addEventListener("click", function() {
         //console.log("click");
         var login = '<?php if (isset($_SESSION['login'])) echo $_SESSION['login'];
-                           else echo 'user'
+                           else echo 'user';
                       ?>';
         var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
-        //console.log("login : " + login);
-        //console.log("cocktail : " + cocktail);
+        console.log("login : " + login);
+        console.log("cocktail : " + cocktail);
         ajouterFavori(login, cocktail, heart[i]);
      });
+  }
+
+
+  // ------------ Mettre les coeurs rouge par défaut aux favoris ------------
+  var XmlHttp2;
+  var imageCoeur2; // variable globale pour que estFavori puisse la modifier et stateChanged2 puisse l'utiliser sans avoir à
+                   // le passer en parametre
+  function stateChanged2() {
+    if(XmlHttp2.readyState==4) {
+      console.log("stateChanged2 : XmlHttp.responseText = " + XmlHttp2.responseText);
+      imageCoeur2.src="../Photos/"+XmlHttp2.responseText+".png";
+    }
+  }
+  function estFavori(login, cocktail, image) {
+    XmlHttp2=GetXmlHttpObject();
+    if(XmlHttp2==null) alert("Objets HTTP non supportés");
+    else {
+      imageCoeur2 = image; // on màj la var globale pour que stateChanged2 puisse l'utiliser
+      XmlHttp2.onreadystatechange=stateChanged2;
+      XmlHttp2.open("GET","estFavori.php?login="+login+"&cocktail="+cocktail,false); // false => synchrone
+      XmlHttp2.send(null);
+    }
+  }
+  for (let i = 0; i < heart.length; i++) {
+    var login = '<?php if (isset($_SESSION['login'])) echo $_SESSION['login'];
+                       else echo 'user';
+                 ?>';
+    var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
+    console.log("Parcours : "+cocktail);
+    estFavori(login, cocktail, heart[i]); // on traite tous les coeurs de la page sans condition
   }
 
 </script>

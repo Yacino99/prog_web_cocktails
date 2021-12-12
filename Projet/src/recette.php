@@ -3,7 +3,8 @@
     <div class="Affichage détaillé">
 
         <?php
-            echo "<a href=\"?page=navigation\"><button><img height=\"20\" width=\"20\" src=\"../Photos/flecheGauche.png\"></button></a><h4>Recette détaillée</h4>";
+            $precedent = $_SERVER["HTTP_REFERER"]; 
+            echo "<a href=".$precedent."><button><img height=\"20\" width=\"20\" src=\"../Photos/flecheGauche.png\"></button></a><h4>Recette détaillée</h4>";
         ?>
 
         <div class="row">
@@ -18,13 +19,6 @@
                         <p><strong>Recette : </strong>".$Recette['preparation']."</p>
                         ";
                         echo "<ul>";
-                        /*
-                        foreach($Recette['index'] as $num => $ingredient) {
-                            echo "<li>".$ingredient."</li>";
-                        }
-                        echo "</ul>";
-                        echo "</div>";
-                        */
                     }
                 }
             ?>
