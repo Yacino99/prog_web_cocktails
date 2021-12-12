@@ -233,7 +233,7 @@ login.addEventListener("keyup", function( event ) {
 
   console.log("okay");
 
-  fichier = "./users/"+login.value+".txt"
+  fichier = "../users/"+login.value+".txt";
 
   console.log(fichier);
 
