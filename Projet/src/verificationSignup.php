@@ -59,7 +59,7 @@ if(!isset($_POST['adresse']) || estVide($_POST['adresse']) )
     $_POST['adresse']=";";  
 
 if(!isset($_POST['tel']) || estVide($_POST['tel']) )
-    $_POST['tel']=";";    
+    $_POST['tel']="0000000000";    
 
 if(isset( $_POST['naissance']) )
 {
@@ -76,46 +76,46 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   
 
 
-  fwrite($myfile2," ");
+  fwrite($myfile2,"%");
   fclose($myfile2);
 
   fwrite($myfile, trim( $_POST['email']) );      // email login mdp nom prenom sexe naissance ville poste adresse tel
-  fwrite($myfile, " ");
+  fwrite($myfile, "%");
 
 
   fwrite($myfile, trim( $_POST['login']) );
-  fwrite($myfile, " ");
+  fwrite($myfile, "%");
 
     fwrite($myfile, trim($_POST['pass']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
 
     fwrite($myfile, trim( $_POST['nom']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['prenom']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['sexe']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['naissance']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['ville']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['poste']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['adresse']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
     fwrite($myfile, trim( $_POST['tel']) );
-    fwrite($myfile, " ");
+    fwrite($myfile, "%");
 
 
-    fwrite($myfile, " ".PHP_EOL);
+    fwrite($myfile, "%".PHP_EOL);
 
   $_SESSION['login'] = trim($_POST['login']);
   $_SESSION['email'] = trim($_POST['email']);

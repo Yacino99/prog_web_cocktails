@@ -19,7 +19,7 @@
 
   <div class="container">
     <label for="nom"><b>Nom</b></label>
-    <input type="text" placeholder="Entrez votre Nom" name="nom" pattern="^[a-zA-Z \-']*$" id="nom" >
+    <input type="text" placeholder="Entrez votre Nom" name="nom"  id="nom" >
 
     <div class="alert" id="warnNom">
       <p>Le nom doit etre composé de lettres minuscules et/ou de lettres MAJUSCULES, ainsi que les 
@@ -27,7 +27,7 @@
     </div>
 
       <label for="prenom"><b>Prenom</b></label>
-      <input type="text" placeholder="Entrez votre Prenom" name="prenom" pattern="^[a-zA-Z \-']*$" id="prenom">
+      <input type="text" placeholder="Entrez votre Prenom" name="prenom"  id="prenom">
         
       <div class="alert" id="warnPrenom">
       <p>Le Prenom doit etre composé de lettres minuscules et/ou de lettres MAJUSCULES, ainsi que les 
@@ -48,16 +48,16 @@
     <br> <br>
 
     <label for="naissance"><b>Date de Naissance</b></label>
-    <input type="date" placeholder="jj/mm/aaaa" name="naissance" id="naissance" onchange="majeur()"> <br> <br>
+    <input type="date" placeholder="jj/mm/aaaa" name="naissance" id="naissance" onchange="majeur()" > <br> <br>
 
-    <label for="adresse"><b>Adresse</b></label>
-    <input type="text" placeholder="Adresse" name="adresse" > <br>
+    <label for="adresse" ><b>Adresse</b></label>
+    <input type="text" placeholder="Adresse" name="adresse" pattern="^[^%]*$"> <br>
 
     <label for="poste"><b>Code Postale</b></label>
-    <input type="number" placeholder="XXXXX" name="poste" > <br>
+    <input type="number" placeholder="XXXXX" name="poste" pattern="^[^%]*$"> <br>
 
     <label for="ville"><b>Ville</b></label>
-    <input type="text" placeholder="Ville" name="ville" > <br>
+    <input type="text" placeholder="Ville" name="ville" pattern="^[^%]*$"> <br>
 
 
     <label for="uname"><b>Login</b></label>
@@ -68,7 +68,7 @@
     </div>
 
     <label for="tel"><b>Telephone</b></label>
-    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0([0-9]{9})" id="numTel"> <br>
+    <input type="number" placeholder="0XXXXXXXXX" name="tel" pattern="^0([0-9]{9}$)" id="numTel"> <br>
 
     <div class="alert" id="warnTel">
       <p>Le numéro de téléphone est limité aux numéros français standards ; il commence par 0 et est suivi de 9 chiffres.
@@ -78,10 +78,10 @@
 
 
      <label for="Email"><b>Email</b></label>
-     <input type="text" placeholder="Entrez votre Email" name="email" required>
+     <input type="text" placeholder="Entrez votre Email" name="email" required pattern="^[^%]*$">
 
     <label for="psw"><b>Mot de Passe</b></label>
-    <input type="password" placeholder="Entrez votre mot de passe " name="pass" required>
+    <input type="password" placeholder="Entrez votre mot de passe " name="pass" required pattern="^[^%]*$">
 
     <button type="submit" id="submit">Creer le Compte ! </button>
 
@@ -143,7 +143,7 @@
 
 tel.addEventListener('keyup',function(e){
 
-  if(/^0([0-9]{9})/.test(tel.value) == false)
+  if(/^0([0-9]{9}$)/.test(tel.value) == false)
   {
     btn.disabled=true ; 
     btn.innerHTML="Pas de creation de compte";

@@ -33,7 +33,7 @@ function mdpCorrect($login , $mdp)
 
       $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
       // process the line read.
-      $arrayString = explode(" ", $line ); // split string with space (white space) as a delimiter.
+      $arrayString = explode("%", $line ); // split string with space (white space) as a delimiter.
 
       if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2]))
       {

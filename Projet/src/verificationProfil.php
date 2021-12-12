@@ -38,7 +38,7 @@ if(!isset($_POST['tel']) || estVide($_POST['tel']) )
     $_POST['tel']=";";    
 
 
-
+print_r($_POST);
 
 
    
@@ -63,58 +63,58 @@ if( $_POST['email'] !== $_SESSION['email'])
     $nouvelMail= "../emails/".trim($_POST['email']).'.txt';
 
     $fichier = fopen($nouvelMail, "w") or die("Unable to open file!");
-    fwrite($fichier," ");
+    fwrite($fichier,"%");
     fclose($fichier);
 }
-else
-{
+
+
     $fichier = fopen("../users/".trim($_SESSION['login']).'.txt',"w");
 
     // email login mdp nom prenom sexe naissance ville poste adresse tel
 
     fwrite($fichier, trim( $_POST['email']) );      
-    fwrite($fichier, " ");
+    fwrite($fichier, "%");
 
 
-  fwrite($fichier, trim( $_SESSION['login']) );
-  fwrite($fichier, " ");
+  fwrite($fichier, trim( $_POST['login']) );
+  fwrite($fichier, "%");
 
-    fwrite($fichier, trim($_SESSION['pass']) );
-    fwrite($fichier, " ");
-
-
-    fwrite($fichier, trim( $_SESSION['nom']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['prenom']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['sexe']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['naissance']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['ville']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['poste']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['adresse']) );
-    fwrite($fichier, " ");
-
-    fwrite($fichier, trim( $_SESSION['tel']) );
-    fwrite($fichier, " ");
+    fwrite($fichier, trim($_POST['pass']) );
+    fwrite($fichier, "%");
 
 
-    fwrite($fichier, " ".PHP_EOL);
+    fwrite($fichier, trim( $_POST['nom']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['prenom']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['sexe']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['naissance']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['ville']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['poste']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['adresse']) );
+    fwrite($fichier, "%");
+
+    fwrite($fichier, trim( $_POST['tel']) );
+    fwrite($fichier, "%");
+
+
+    fwrite($fichier, "%".PHP_EOL);
 
     fclose($fichier);
 
    
-}
 
+    $_SESSION['email'] = trim($_POST['email']);
 
 header("Location: index.php");
 

@@ -36,8 +36,8 @@
       echo $_SESSION['login'];
       echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; 
       echo '
-      <a href="deconnexion.php"><button type="button" name="profil"> Deconnexion </button></a>
-      '; 
+      <a href="deconnexion.php"><button type="button" name="profil"> Deconnexion </button></a> 
+      '; // TODO : event listener pour confirmer la deco
     }
     else
       echo '   

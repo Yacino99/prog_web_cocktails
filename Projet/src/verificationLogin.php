@@ -65,7 +65,7 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
 
       $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
       // process the line read.
-      $tabUser = explode(" ", $line ); // split string with space (white space) as a delimiter.
+      $tabUser = explode("%", $line ); // split string with space (white space) as a delimiter.
 
       
       $_SESSION['login'] = trim($tabUser[1]);
