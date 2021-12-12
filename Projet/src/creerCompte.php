@@ -233,12 +233,27 @@ login.addEventListener("keyup", function( event ) {
 
   console.log("okay");
 
-  fichier = "../users/"+login.value+".txt";
+  fichier = "../users/"+login.value.trim()+".txt";
 
   console.log(fichier);
 
   if(checkFileExist(fichier)) ilExiste();
   else ilExistePas();
+
+  if(login.value.trim() === "user")
+  {
+    btn.disabled=true ; 
+    btn.className = "redButton" ;
+    btn.innerHTML="Pas de creation de compte";
+    alert("le login ne doit pas etre au nom de 'user' (il est sacré)");
+  }
+  else
+  {
+    btn.disabled=false; 
+    btn.className = "";
+    btn.innerHTML="Creer le compte !"; 
+  }
+
 });
  
 
