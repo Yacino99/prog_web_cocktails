@@ -27,8 +27,10 @@
 
     <span>
       Recherche :
-      <input type="search" id="recherche" name="recherche">
-      <button type="submit" name="submit"><img height="20" width="20" src="../Photos/search.png"/></button>
+      <form action="?page=recherche" method="post">
+        <input type="search" id="recherche" name="recherche"/>
+        <input type="submit" name="submit"><img height="20" width="20" src="../Photos/search.png"/></input>
+      </form>
     </span>
 
     <?php
