@@ -79,12 +79,15 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
       $_SESSION['poste'] = trim($tabUser[8]);
       $_SESSION['adresse'] = trim($tabUser[9]);
       $_SESSION['tel'] = trim($tabUser[10]);
+
+      // on concatene user_favoris et login_favoris dans login_favoris à la connexion
+      file_put_contents("../favoris/".$_SESSION['login']."_favoris.txt", file_get_contents("../favoris/user_favoris.txt"), FILE_APPEND);
   }
 
   fclose($handle);
 
   header("Location: index.php");
-  
+
 }
 else {
 

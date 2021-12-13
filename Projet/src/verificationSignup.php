@@ -133,7 +133,8 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 
   header("Location: index.php");
 
-  file_put_contents("../favoris/".$_SESSION['login']."_favoris.txt", ""); // on créer un fichier favoris à la création du compte
+  // on créer un fichier favoris à la création du compte avec les favoris temporaires
+  file_put_contents("../favoris/".$_SESSION['login']."_favoris.txt", file_get_contents("../favoris/user_favoris.txt"));
 
 }elseif ( emailExist( trim($_POST['email']) ) ) {
 

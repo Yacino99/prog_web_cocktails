@@ -135,7 +135,7 @@
                   // le passer en parametre
   function stateChanged() {
     if(XmlHttp.readyState==4) {
-      console.log("stateChanged : XmlHttp.responseText = " + XmlHttp.responseText);
+      //console.log("stateChanged : XmlHttp.responseText = " + XmlHttp.responseText);
       //console.log("stateChanged : " + imageCoeur.src);
       imageCoeur.src="../Photos/"+XmlHttp.responseText+".png";
     }
@@ -157,8 +157,8 @@
                            else echo 'user';
                       ?>';
         var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
-        console.log("login : " + login);
-        console.log("cocktail : " + cocktail);
+        //console.log("login : " + login);
+        //console.log("cocktail : " + cocktail);
         ajouterFavori(login, cocktail, heart[i]);
      });
   }
@@ -170,7 +170,7 @@
                    // le passer en parametre
   function stateChanged2() {
     if(XmlHttp2.readyState==4) {
-      console.log("stateChanged2 : XmlHttp.responseText = " + XmlHttp2.responseText);
+      //console.log("stateChanged2 : XmlHttp.responseText = " + XmlHttp2.responseText);
       imageCoeur2.src="../Photos/"+XmlHttp2.responseText+".png";
     }
   }
@@ -189,7 +189,7 @@
                        else echo 'user';
                  ?>';
     var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
-    console.log("Parcours : "+cocktail);
+    //console.log("Parcours : "+cocktail);
     estFavori(login, cocktail, heart[i]); // on traite tous les coeurs de la page sans condition
   }
 
