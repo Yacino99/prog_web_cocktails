@@ -223,7 +223,7 @@
 			*/
 
 			$nbCriteres = sizeof($alimSouhaites) + sizeof($alimNonSouhaites);
-			$score[$Recette['titre']] = 100*( ($nbAlimSouhaitePresent + $nbAlimNonSouhaiteAbsent)/$nbCriteres );
+			$score[$numRecette] = 100*( ($nbAlimSouhaitePresent + $nbAlimNonSouhaiteAbsent)/$nbCriteres );
 
 			//echo "Recette : ".$Recette['titre'].", nbAlimSouhaitePresent : ".$nbAlimSouhaitePresent.", nbAlimNonSouhaiteAbsent : ".$nbAlimNonSouhaiteAbsent."</br>";
 
@@ -231,9 +231,9 @@
 
 		include("traitementNomFichier.php"); // accès à la fonction traitementNomFichier($chaine)
 		arsort($score); // trie par ordre decroissant en gardant le lien index valeur
-		foreach($score as $titreRecette => $pourcent) {
+		foreach($score as $num => $pourcent) {
 			if ($pourcent > 0) {
-				//echo $titreRecette;
+				$titreRecette = $Recettes[$num]['titre'];
 				$nomFichier = traitementNomFichier($titreRecette);
 				if (!file_exists("../Photos/".$nomFichier))
 					$nomFichier = "cocktail.png";
@@ -241,8 +241,14 @@
 					<div class=\"boisson border col-auto\">
 					<h5><a href=\"?recette=".$titreRecette."\">".$titreRecette."</a> <a><img class='heart' id=\"".$titreRecette."\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
 					<img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
-					<p>".$pourcent."</p>
+					<p>Score = ".$pourcent."</p>
 				";
+				echo "<ul>";
+				foreach($Recettes[$num]['index'] as $numIngr => $ingredient) {
+				  echo "<li>".$ingredient."</li>";
+				}
+				echo "</ul>";
+				echo "</div>"; 
 			}
 		}
 	}
