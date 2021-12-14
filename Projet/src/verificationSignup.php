@@ -152,7 +152,7 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   echo "<h2 style='color:red'>Erreur Email deja existant</h2>";
 
   echo "<div class='center'>
-              <p>reassyez ici   <a href='creerCompte.php'> CREER COMPTE </a>
+              <p>reassyez ici   <a href='?page=creerCompte'> CREER COMPTE </a>
               </p>
             </div>";
 
@@ -166,7 +166,7 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
     echo "<h2 style='color:red'>Erreur Login deja existant</h2>";
 
     echo "<div class='center'>
-            <p>reassyez ici   <a href='creerCompte.php'> CREER COMPTE </a>
+            <p>reassyez ici   <a href='?page=creerCompte'> CREER COMPTE </a>
             </p>
           </div>";
 

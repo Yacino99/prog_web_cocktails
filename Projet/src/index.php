@@ -14,6 +14,7 @@
     <title>Acceuil</title>
     <?php include 'Donnees.inc.php'; echo PHP_EOL; ?>
     <!-- CSS only -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   </head>
 
@@ -29,7 +30,8 @@
       Recherche :
       <form action="?page=recherche" method="post">
         <input type="search" id="recherche" name="recherche"/>
-        <input type="submit" name="submit"><img height="20" width="20" src="../Photos/search.png"/></input>
+         <input type="submit" name="submit" value="recherche"></input> 
+      
       </form>
     </span>
 
@@ -44,7 +46,7 @@
     else
       echo '   
       <span>
-        <form action="verificationLogin.php" method="post" >
+        <form action="?page=verificationLogin" method="post" >
         Login : <input type="text"  name="login" required>
         Mot de Passe : 
         <input type="password" name="pass" id="pass" required>

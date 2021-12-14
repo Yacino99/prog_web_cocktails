@@ -1,4 +1,4 @@
-<?php session_start();
+<?php //session_start();
 
 $html = "
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ $titre= "<h2 style='color:red'>Erreur Login ou mot de passe incorrect</h2>";
 $box="
 <div class='center'>
   <p>reassyez ici   <a href='index.php'> RETOUR A LA PAGE PRINCIPALE </a>
-  ou creer un compte ici -->   <a href='creerCompte.php'> CREER COMPTE </a>
+  ou creer un compte ici -->   <a href='?page=creerCompte'> CREER COMPTE </a>
 
   </p>
 </div>
@@ -95,7 +95,7 @@ else {  // sinon le mot de passe est incorrect du coup on affiche une erreur
 
   echo "<div class='center'>
           <p>reassyez ici   <a href='index.php'> PAGE D'ACCEUIL </a>
-          ou creer un compte ici -->   <a href='creerCompte.php'> CREER COMPTE </a>
+          ou creer un compte ici -->   <a href='?page=creerCompte'> CREER COMPTE </a>
 
           </p>
         </div>
