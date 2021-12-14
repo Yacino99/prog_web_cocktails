@@ -20,16 +20,16 @@
 	else {
 		$i =0;
 		$k =0;
-		$j = 0;
+		$t= 0;
 		$alimNonSouhaites = array();
 		$alimSouhaites = array();
 		while( $i<strlen($recherche) ){
 			if ($recherche[$i] == " " ){
 				$i++;
 			}
-			 if($recherche[$i] == '-'){
+			 if($recherche[$i] == '-'){// cas - 
 				$i++;
-				if ($recherche[$i] == '"'){
+				if ($recherche[$i] == '"'){ //cas -"...."
 					$i++;
 					$alimNonSouhaite = "";
 					while ($recherche[$i] != '"'){
@@ -39,7 +39,7 @@
 					$alimNonSouhaites[$k] = $alimNonSouhaite;
 					$k++;
 					
-				}else {
+				}else {//cas -....
 					$alimNonSouhaite = "";
 					while ($recherche[$i] != ' ' and $recherche[$i] != "."){
 						$alimNonSouhaite = $alimNonSouhaite.$recherche[$i];
@@ -49,10 +49,10 @@
 					$k++;
 				}
 					
-			}else if($recherche[$i] == "+"  ){
+			}else if($recherche[$i] == "+"  ){// cas +
 				$i++;
 			
-				if ($recherche[$i] == '"'){
+				if ($recherche[$i] == '"'){//cas +"...."
 					$i++;
 					$alimSouhaite = "";
 					while ($recherche[$i] != '"'){
@@ -61,9 +61,9 @@
 					}
 					$alimSouhaites[$j] = $alimSouhaite;
 					$j++;
-				}else {
+				}else {// cas +....
 					$alimSouhaite = "";
-					while ($recherche[$i] != ' ' and $recherche[$i] != "."){
+					while ($recherche[$i] != ' ' and  $recherche[$i] != "."){
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
 						$i++;
 					}
@@ -72,8 +72,8 @@
 				}
 			
 				
-			}else {
-					if ($recherche[$i] == '"'){
+			}else { // cas 
+				if ($recherche[$i] == '"'){
 					$i++;
 					$alimSouhaite = "";
 					while ($recherche[$i] != '"'){
@@ -82,7 +82,7 @@
 					}
 					$alimSouhaites[$j] = $alimSouhaite;
 					$j++;
-				}else {
+				}else if ($recherche[$i] != '"' and   $recherche[$i] != "."){
 					$alimSouhaite = "";
 					while ($recherche[$i] != ' ' and $recherche[$i] != "."){
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
@@ -94,13 +94,16 @@
 			}
 			
 			$i++;
-		}
-		foreach($alimNonSouhaites as $alim ){	
+		 }
+		 foreach($alimNonSouhaites as $alim ){
+			 
 			echo "alimNonSouhaite: ".$alim."\n </br>";
-		}
-		foreach($alimSouhaites as $alim ){
+			
+		 }
+		
+		 foreach($alimSouhaites as $alim ){
 			echo"alimSouhaite: ".$alim. "\n </br>";
-		}
+		 }
 	}
 
 	// --------------------- CALCUL DU SCORE POUR CHAQUE RECETTE ---------------------
