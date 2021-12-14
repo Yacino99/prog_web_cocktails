@@ -106,11 +106,32 @@
 		 }
 	}
 
+
 	// --------------------- CALCUL DU SCORE POUR CHAQUE RECETTE ---------------------
 	include("Donnees.inc.php");
 	// On sélectionne les recettes qui correspondent à $alimSouhaites et $alimNonSouhaites
     $res = array();
 	$score = array(); // tableau des scores de chaque de recette initialisé à 100
+
+	/* Si besoin d'un tableau de booléens : ------------------------------------------------------------------------
+	// 2 tableaux pour vérifiés si chaque alim de boolAlimSouhaites et alimNonSouhaites a été trouvé ou non
+	$boolAlimSouhaites = array();
+	$boolAlimNonSouhaites = array();
+	foreach($alimSouhaites as $alim) {
+		boolAlimSouhaites[$alim] = false;
+	}
+	foreach($alimNonSouhaites as $alim) {
+		boolAlimNonSouhaites[$alim] = false;
+	}
+	function toutVrai($tab) {
+		// renvoie true ssi toutes les valeurs d'un tab de booléens sont à true sinon false
+		foreach($tab as $value) {
+			if ($value == false) return false;
+		}
+		return true;
+	}
+	----------------------------------------------------------------------------------------------------------- */
+
     foreach($Recettes as $numRecette => $Recette) {
 		$nbAlimSouhaitePresent = 0;
 		$nbAlimSouhaiteAbsent = 0;
@@ -153,11 +174,11 @@
 			}
 		}
 
-		/* On a
-		$nbAlimSouhaitePresent
-		$nbAlimSouhaiteAbsent
-		$nbAlimNonSouhaiteAbsent
-		$nbAlimNonSouhaitePresent
+		/* On dispose de
+		- $nbAlimSouhaitePresent
+		- $nbAlimSouhaiteAbsent
+		- $nbAlimNonSouhaiteAbsent
+		- $nbAlimNonSouhaitePresent
 		pour calculer $score[$Recette]
 		*/
 
