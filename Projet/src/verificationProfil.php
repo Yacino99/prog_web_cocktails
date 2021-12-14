@@ -15,27 +15,27 @@ if(!isset($_POST['pass']) || estVide($_POST['pass']) )
 
 if(!isset($_POST['nom']) || estVide($_POST['nom']) )
     //echo "Vous avez mal renseigné votre nom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
-    $_POST['nom']=";";
+    $_POST['nom']=" ";
 
 if(!isset($_POST['prenom']) || estVide($_POST['prenom']) )
     //echo "Vous avez mal renseigné votre prenom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
-    $_POST['prenom']=";";
+    $_POST['prenom']=" ";
 
    
     if(!isset($_POST['naissance']) || estVide($_POST['naissance']) )
-    $_POST['naissance']=";";
+    $_POST['naissance']=" ";
 
 if(!isset($_POST['ville']) || estVide($_POST['ville']) )
-    $_POST['ville']=";";
+    $_POST['ville']=" ";
 
 if(!isset($_POST['poste']) || estVide($_POST['poste']) )
-    $_POST['poste']=";";
+    $_POST['poste']=" ";
 
 if(!isset($_POST['adresse']) || estVide($_POST['adresse']) )
-    $_POST['adresse']=";";  
+    $_POST['adresse']=" ";  
 
 if(!isset($_POST['tel']) || estVide($_POST['tel']) )
-    $_POST['tel']=";";    
+    $_POST['tel']=" ";    
 
 
 print_r($_POST);
@@ -76,7 +76,7 @@ if( $_POST['email'] !== $_SESSION['email'])
     fwrite($fichier, "%");
 
 
-  fwrite($fichier, trim( $_POST['login']) );
+  fwrite($fichier, trim( $_SESSION['login']) );
   fwrite($fichier, "%");
 
     fwrite($fichier, trim($_POST['pass']) );

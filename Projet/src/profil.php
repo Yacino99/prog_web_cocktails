@@ -2,18 +2,6 @@
 //session_start();
 echo "Mon profil"
 
-//--TODO : stocker la session dans des variables pour eviter les ;
-
-/*
-if(!isset($_SESSION['naissance']) || strcmp($_SESSION['naissance'],";") === 0 )
-{
-
-  $date_naissance="";
-}
-  else
-    $date_naissance=$_SESSION['naissance'];
-*/
-   
 
 ?>
 
@@ -93,13 +81,6 @@ if(!isset($_SESSION['naissance']) || strcmp($_SESSION['naissance'],";") === 0 )
 
 <br> <br>
 
-<form action="supprimerCompte.php" onsubmit="return confirmerSuppression(this);">
-  
-
-<button type="submit"  style=" background: red; " id="submitSupprimer">Supprimer le compte </button>
-
-
-</form>
 
 </body>
 
@@ -121,13 +102,7 @@ if(!isset($_SESSION['naissance']) || strcmp($_SESSION['naissance'],";") === 0 )
   warnTel.style.display = "none";
   
 
-  supprime = document.getElementById('submitSupprimer');
-
-  function confirmerSuppression(form) {
-        return confirm('Voulez-vous vraiment supprimer le compte ? ');
-  }
-
-  //-----TODO : faire les memes verifications que la cration de compte,  enfin pour les regex et les apparitions de div
+  
 
 
 

@@ -34,37 +34,33 @@ if(!isset($_POST['pass']) || estVide($_POST['pass']) )
 
 if(!isset($_POST['nom']) || estVide($_POST['nom']) )
     //echo "Vous avez mal renseigné votre nom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
-    $_POST['nom']=";";
+    $_POST['nom']=" ";
 
 if(!isset($_POST['prenom']) || estVide($_POST['prenom']) )
     //echo "Vous avez mal renseigné votre prenom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
-    $_POST['prenom']=";";
+    $_POST['prenom']=" ";
 
 if(!isset($_POST['login']) || estVide($_POST['login']) )
     echo "Vous avez mal renseigné votre login , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['sexe']) || estVide($_POST['sexe']) )
-    $_POST['sexe']=";";
+    $_POST['sexe']=" ";
     
 if(!isset($_POST['naissance']) || estVide($_POST['naissance']) )
-    $_POST['naissance']=";";
+    $_POST['naissance']=" ";
 
 if(!isset($_POST['ville']) || estVide($_POST['ville']) )
-    $_POST['ville']=";";
+    $_POST['ville']=" ";
 
 if(!isset($_POST['poste']) || estVide($_POST['poste']) )
-    $_POST['poste']=";";
+    $_POST['poste']=" ";
 
 if(!isset($_POST['adresse']) || estVide($_POST['adresse']) )
-    $_POST['adresse']=";";  
+    $_POST['adresse']=" ";  
 
 if(!isset($_POST['tel']) || estVide($_POST['tel']) )
     $_POST['tel']="0000000000";    
 
-if(isset( $_POST['naissance']) )
-{
-  //---TODO : verifier qu'il est majeur
-}
 
 
 $monf = "../users/".trim($_POST['login']).'.txt';
@@ -74,7 +70,7 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   $myfile = fopen($monf, "w") or die("Unable to open file!");
   $myfile2 = fopen("../emails/".trim($_POST['email']).'.txt', "w") or die("Unable to open file!");
   
-
+  echo "ici";
 
   fwrite($myfile2,"%");
   fclose($myfile2);
@@ -131,11 +127,13 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 
   fclose($myfile);
 
-  header("Location: index.php");
-
   // on créer un fichier favoris à la création du compte avec les favoris temporaires
+  
   file_put_contents("../favoris/".$_SESSION['login']."_favoris.txt", file_get_contents("../favoris/user_favoris.txt"));
 
+  header("Location: index.php");
+
+  
 }elseif ( emailExist( trim($_POST['email']) ) ) {
 
   //echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";

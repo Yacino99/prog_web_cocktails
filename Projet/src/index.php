@@ -38,16 +38,14 @@
     {
       echo $_SESSION['login'];
       echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; 
-      echo '
-      <a href="deconnexion.php"><button type="button" name="profil"> Deconnexion </button></a> 
+      echo '<form action="deconnexion.php" onsubmit="return confirmerDeconnexion(this);"> <input type="submit" value="Deconnexion" > </form>
       '; // TODO : event listener pour confirmer la deco
     }
     else
       echo '   
       <span>
-        <form action="verificationLogin.php" method="post">
-        Login :
-        <input type="text"  name="login" required>
+        <form action="verificationLogin.php" method="post" >
+        Login : <input type="text"  name="login" required>
         Mot de Passe : 
         <input type="password" name="pass" id="pass" required>
         <input type="submit" value="Se connecter !">
@@ -193,6 +191,12 @@
     var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
     //console.log("Parcours : "+cocktail);
     estFavori(login, cocktail, heart[i]); // on traite tous les coeurs de la page sans condition
+  }
+
+
+
+  function confirmerDeconnexion(form) {
+        return confirm('Voulez-vous vraiment vous deconnecter ? ');
   }
 
 </script>
