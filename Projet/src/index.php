@@ -39,7 +39,7 @@
       echo $_SESSION['login'];
       echo '<a href="?page=profil"><button type="button" name="profil"> Profil </button></a>'; 
       echo '<form action="deconnexion.php" onsubmit="return confirmerDeconnexion(this);"> <input type="submit" value="Deconnexion" > </form>
-      '; // TODO : event listener pour confirmer la deco
+      '; 
     }
     else
       echo '   
@@ -157,8 +157,7 @@
                            else echo 'user';
                       ?>';
         var cocktail = heart[i].parentElement.parentElement.firstChild.textContent;
-        //console.log("login : " + login);
-        //console.log("cocktail : " + cocktail);
+        
         ajouterFavori(login, cocktail, heart[i]);
      });
   }
@@ -194,6 +193,8 @@
   }
 
 
+// fonction qui affiche une popup de confiramtion de si le user veut se deconnecter
+// si il appuie sur confirmer , il se deconnecte , sinon il le fait pas
 
   function confirmerDeconnexion(form) {
         return confirm('Voulez-vous vraiment vous deconnecter ? ');

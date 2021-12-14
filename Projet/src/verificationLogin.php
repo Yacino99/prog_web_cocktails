@@ -39,15 +39,8 @@ $box="
 
 
 include_once 'fonctions.php';
-/*
-if (! file_exists("users.txt") )
-{
-    echo "$html";
-    echo "$titre";
-    echo "$box";
 
-}
-*/
+//--je verifie dans la base de donnee si le fichier "nomDuUser".txt existe
 
 if (! loginExist(trim($_POST['login']))) {
 
@@ -56,6 +49,10 @@ if (! loginExist(trim($_POST['login']))) {
     echo "$box";
 
 }
+
+//-- dans le cas ou il existe on verifie si le mot de passe est correct
+// si oui , on recupere les donnees de l'utilisateur a partir du fichier afin de les stocker dans la session
+
 elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
 
   $handle = fopen("../users/".$_POST['login'].".txt", "r") or die("cannot open file ");
@@ -63,10 +60,11 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
   if ($handle)
   {
 
-      $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
-      // process the line read.
-      $tabUser = explode("%", $line ); // split string with space (white space) as a delimiter.
+      $line = fgets($handle); 
+      
+      $tabUser = explode("%", $line ); // coupe la chaine recupere avec '%' comme delemiteur et la stock dans un tableau
 
+      // on stock dans la session les donnees de l'utilisateur
       
       $_SESSION['login'] = trim($tabUser[1]);
       $_SESSION['email'] = trim($tabUser[0]);
@@ -89,14 +87,14 @@ elseif (mdpCorrect(trim($_POST['login']) , trim($_POST['pass']))) {
   header("Location: index.php");
 
 }
-else {
+else {  // sinon le mot de passe est incorrect du coup on affiche une erreur
 
     echo "$html";
     echo "<h2 style='color:red'>Erreur :  mot de passe incorrect</h2>" ;
 
 
   echo "<div class='center'>
-          <p>reassyez ici   <a href='Login.php'> PAGE DE LOGIN </a>
+          <p>reassyez ici   <a href='index.php'> PAGE D'ACCEUIL </a>
           ou creer un compte ici -->   <a href='creerCompte.php'> CREER COMPTE </a>
 
           </p>

@@ -86,11 +86,14 @@ echo "Mon profil"
 
 <script>
 
+//--on recupere les id des input du nom , prenom et telephone ainsi que le bouton submit
+
   btn = document.getElementById("submit2");
   nom= document.getElementById('nom2');
   prenom  =document.getElementById('prenom2');
   tel = document.getElementById('tel2');
 
+  //---on recupere les id des div de warning , puis on les cache toutes
 
   warnNom = document.getElementById('warnNom2');
   warnNom.style.display = "none";
@@ -104,11 +107,12 @@ echo "Mon profil"
 
   
 
-
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le numero est valide
+//--si le numero n'est pas valide , on affiche la div eton desactive le bouton submit
 
   tel.addEventListener('keyup',function(e){
 
-if(/^0([0-9]{9}$)/.test(tel.value) == false)
+if(/^0([0-9]{9}$)/.test(tel.value) == false)  // regex qui test si le numero est valide
 {
   btn.disabled=true ; 
   btn.innerHTML="Pas de Modification de compte";
@@ -126,7 +130,14 @@ else
 } );
 
 
+
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le nom est valide
+//--si le nom n'est pas valide , on affiche la div eton desactive le bouton submit
+
+
 nom.addEventListener('keyup',function(e){
+
+//-- regex qui test si un nom est valide
 
 if(/^([a-zA-Z]|[a-zA-Z]\-[a-zA-Z]|[a-zA-Z]'[a-zA-Z]|[a-zA-Z]'[a-zA-Z]-[a-zA-Z]'[a-zA-Z]|[a-zA-Z] [a-zA-Z])*$/.test(nom.value) == false)
 {
@@ -146,37 +157,48 @@ else
 } );
 
 
+
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le prenom est valide
+//--si le prenom n'est pas valide , on affiche la div eton desactive le bouton submit
+
+
 prenom.addEventListener('keyup',function(e){
+
+//-- regex qui test si un nom est valide
 
 if(/^([a-zA-Z]|[a-zA-Z]\-[a-zA-Z]|[a-zA-Z]'[a-zA-Z]|[a-zA-Z]'[a-zA-Z]-[a-zA-Z]'[a-zA-Z]|[a-zA-Z] [a-zA-Z])*$/.test(prenom.value) == false)
 {
-  console.log("non");
-  btn.disabled=true ; 
+ 
+  btn.disabled=true ;       // on desactive le bouton 
   btn.innerHTML="Pas de modification de compte";
-  warnPrenom.style.display = "block";
+  warnPrenom.style.display = "block"; // on affiche la div de warning
 }
   
 else
   {
-    btn.disabled=false; 
+    btn.disabled=false; // on reactive le bouton 
     btn.innerHTML="Appuyez pour enregistrer les modifications";
-    warnPrenom.style.display = "none";
+    warnPrenom.style.display = "none"; // on cache la div de warning
      
   }
 } );
 
 
+ // verification de la date
 
-naissance = document.getElementById("naissance2");  // verification de la date
+naissance = document.getElementById("naissance2"); // on recupere la date de naissance saisie par l'utilisateur
 
 var aujourdhui = new Date();
 var cetteAnnee = aujourdhui.getFullYear();
 
+//--- fonction qui verifie si l'utilisateur est majeur , si oui on fait rien (le bouton reste active)
+// sinon on affiche une popup qui lui dit qu'il faut etre majeur
+// et on desactive le bouton submit
 
 function majeur(){
 var ladate = naissance.value.split('-');
 
-  var age =  cetteAnnee -  ladate[0];
+  var age =  cetteAnnee -  ladate[0];   // on verifie l'age
   if(age < 18){
     alert("Tu dois avoir plus de 18 pour boire , gamin");
     btn.disabled=true;

@@ -26,6 +26,11 @@ $finhtml = "
 </html>
 ";
 
+
+// on test si les parametres recu par le formulaire sont vide , si oui , on affiche une erreur pour le cas ou l'email ou le mot de passe est vide
+// sinon on stock des espaces dans la variable $_POST afin de stocker tout ceci dans un fichier (notre base de donnee);
+
+
 if(!isset($_POST['email']) || estVide($_POST['email']) )
     echo "Vous avez mal renseigné votre email , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
@@ -33,15 +38,13 @@ if(!isset($_POST['pass']) || estVide($_POST['pass']) )
     echo "Vous avez mal renseigné votre mot de passe , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['nom']) || estVide($_POST['nom']) )
-    //echo "Vous avez mal renseigné votre nom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
     $_POST['nom']=" ";
 
 if(!isset($_POST['prenom']) || estVide($_POST['prenom']) )
-    //echo "Vous avez mal renseigné votre prenom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
     $_POST['prenom']=" ";
 
 if(!isset($_POST['login']) || estVide($_POST['login']) )
-    echo "Vous avez mal renseigné votre login , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
+    echo "Vous avez mal renseigné votre login , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['sexe']) || estVide($_POST['sexe']) )
     $_POST['sexe']=" ";
@@ -58,12 +61,15 @@ if(!isset($_POST['poste']) || estVide($_POST['poste']) )
 if(!isset($_POST['adresse']) || estVide($_POST['adresse']) )
     $_POST['adresse']=" ";  
 
-if(!isset($_POST['tel']) || estVide($_POST['tel']) )
+if(!isset($_POST['tel']) || estVide($_POST['tel']) ) // si le numero est vide , on le met a 10 zero par defaut
     $_POST['tel']="0000000000";    
 
-
-
 $monf = "../users/".trim($_POST['login']).'.txt';
+
+
+// on cree le fichier qui a pour nom "NomDuUser".txt ou on va stocker ces donnees dedans
+// IMPORRTANT : un fichier par utilisateur
+
 
 if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 {
@@ -72,10 +78,12 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   
   echo "ici";
 
+  //---on stock les donnees recu par le formulaire avec le format suivant
+   // email%login%motDePasse%nom%prenom%sexe%naissance%ville%poste%adresse%tel
   fwrite($myfile2,"%");
   fclose($myfile2);
 
-  fwrite($myfile, trim( $_POST['email']) );      // email login mdp nom prenom sexe naissance ville poste adresse tel
+  fwrite($myfile, trim( $_POST['email']) );     
   fwrite($myfile, "%");
 
 
@@ -113,6 +121,8 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 
     fwrite($myfile, "%".PHP_EOL);
 
+  //-- on stock les parametres du post dans nos sessions 
+
   $_SESSION['login'] = trim($_POST['login']);
   $_SESSION['email'] = trim($_POST['email']);
   $_SESSION['pass'] = trim($_POST['pass']);
@@ -134,9 +144,9 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
   header("Location: index.php");
 
   
-}elseif ( emailExist( trim($_POST['email']) ) ) {
+}elseif ( emailExist( trim($_POST['email']) ) ) { // si le mail existe deja , on affiche une erreur
 
-  //echo "Email deja existant !! try again ici -->   <a href='creerCompte.php'> CREER COMPTE </a>";
+ 
 
   echo "$debutHtmlEtStyle" ;
   echo "<h2 style='color:red'>Erreur Email deja existant</h2>";
@@ -148,7 +158,7 @@ if (! file_exists($monf) && ! emailExist( trim($_POST['email']) ))
 
   echo "$finhtml";
 
-}elseif(loginExist ( trim($_POST['login']) ) )
+}elseif(loginExist ( trim($_POST['login']) ) ) // si le login exsite deja , on affiche une erreur , ils doit etre unique
 {
 
   echo "$debutHtmlEtStyle";

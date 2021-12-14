@@ -7,6 +7,9 @@ session_start();
 
 include_once 'fonctions.php';
 
+// on test si les parametres recu par le formulaire sont vide , si oui , on affiche une erreur pour le cas ou l'email ou le mot de passe est vide
+// sinon on stock des espaces dans la variable $_POST afin de stocker tout ceci dans un fichier (notre base de donnee);
+
 if(!isset($_POST['email']) || estVide($_POST['email']) )
     echo "Vous avez mal renseigné votre email , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
@@ -14,11 +17,9 @@ if(!isset($_POST['pass']) || estVide($_POST['pass']) )
     echo "Vous avez mal renseigné votre mot de passe , cliquer  ICI ->> <a href='index.php?page=creerCompte'> CREER COMPTE </a> pour ressayer ";
 
 if(!isset($_POST['nom']) || estVide($_POST['nom']) )
-    //echo "Vous avez mal renseigné votre nom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
     $_POST['nom']=" ";
 
 if(!isset($_POST['prenom']) || estVide($_POST['prenom']) )
-    //echo "Vous avez mal renseigné votre prenom , cliquer  ICI ->> <a href='creerCompte.php'> CREER COMPTE </a> pour ressayer ";
     $_POST['prenom']=" ";
 
    
@@ -38,10 +39,8 @@ if(!isset($_POST['tel']) || estVide($_POST['tel']) )
     $_POST['tel']=" ";    
 
 
-print_r($_POST);
-
-
-   
+    //-- maintenant qu'on a le format qu'on veut , on enregistre les infos de l'utilisateur dans des sessions
+    
     $_SESSION['pass'] = trim($_POST['pass']);
     $_SESSION['nom'] = trim($_POST['nom']);
     $_SESSION['prenom'] = trim($_POST['prenom']);
@@ -51,6 +50,8 @@ print_r($_POST);
     $_SESSION['ville'] = trim($_POST['ville']);
     $_SESSION['tel'] = trim($_POST['tel']);
 
+
+    //-- si l'utilisateur n'a pas modifier son email , on efface le fichier deja existant et on recree un identique
 
 if( $_POST['email'] !== $_SESSION['email'])
 {
@@ -67,10 +68,13 @@ if( $_POST['email'] !== $_SESSION['email'])
     fclose($fichier);
 }
 
+    // on enregistre les modification dans le fichier "nom_Utilisateur".txt les modifications qu'il a fourni sous le format suivant :
+    // email%login%motDePasse%nom%prenom%sexe%naissance%ville%poste%adresse%tel
 
+    //-- on ouvre le fichier en mode ecrasement
     $fichier = fopen("../users/".trim($_SESSION['login']).'.txt',"w");
-
-    // email login mdp nom prenom sexe naissance ville poste adresse tel
+    
+        //-- on ecrase les donnees
 
     fwrite($fichier, trim( $_POST['email']) );      
     fwrite($fichier, "%");
@@ -116,7 +120,7 @@ if( $_POST['email'] !== $_SESSION['email'])
 
     $_SESSION['email'] = trim($_POST['email']);
 
-header("Location: index.php");
+header("Location: index.php");  // on redirige vers la page d'acceuil
 
 
 ?>

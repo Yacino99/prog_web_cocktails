@@ -1,6 +1,6 @@
 <?php
 
-function emailExist($lemail)  // verifie si l'email existe  fichier type --> email login mdp nom prenom
+function emailExist($lemail)  // verifie si l'email existe  fichier type -->  email%login%motDePasse%nom%prenom%sexe%naissance%ville%poste%adresse%tel
 {
   if (! file_exists('../emails/'.$lemail.'.txt'))
       return false;
@@ -10,7 +10,7 @@ function emailExist($lemail)  // verifie si l'email existe  fichier type --> ema
 }
 
 
-function loginExist($login)   // verifie si le login existe  fichier type --> email login mdp nom prenom
+function loginExist($login)   // verifie si le login existe  fichier type -->  email%login%motDePasse%nom%prenom%sexe%naissance%ville%poste%adresse%tel
 {
   if (! file_exists('../users/'.$login.'.txt'))
       return false;
@@ -21,51 +21,36 @@ function loginExist($login)   // verifie si le login existe  fichier type --> em
 
 function estVide($mot)
 {
-  return trim($mot) == '';
+  return trim($mot) == ''; // verifie si une chaine de caractere est vide
 }
 
-function mdpCorrect($login , $mdp)
+// fonction qui verifie si le mot de passe est correct par rapport au login renvoie true si oui sinon false
+function mdpCorrect($login , $mdp) 
 {
   $handle = fopen("../users/".$login.".txt", "r");
 
   if ($handle)
    {
 
-      $line = fgets($handle); //// email login mdp nom prenom sexe naissance ville poste adresse tel
+      $line = fgets($handle);  //format -> email%login%motDePasse%nom%prenom%sexe%naissance%ville%poste%adresse%tel
       // process the line read.
       $arrayString = explode("%", $line ); // split string with space (white space) as a delimiter.
 
-      if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2]))
+      //on verifie si le login est egal au 2eme champs du fichier (login)
+      // et si le mot de passe est egale au 3eme champ du fichier 
+
+      if($login === trim($arrayString[1]) && $mdp === trim($arrayString[2])) 
       {
         fclose($handle);
         return true;
       }
     }
 
+
+
     fclose($handle);
 
     return false;
-}
-
-function getNom($login , $fichier)
-{
-    
-    return " ";
-}
-
-
-
-function getPrenom($login , $fichier)
-{
-   
-    return " ";
-
-}
-
-function getEmail($login , $fichier)
-{
-    
-    return " ";
 }
 
 

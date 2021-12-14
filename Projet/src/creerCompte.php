@@ -98,12 +98,15 @@
 <script type="text/javascript">
 
 
+//--on recupere les id des input du nom , prenom et telephone ainsi que le bouton submit et le input du login
+
   btn = document.getElementById("submit");
   login = document.getElementById('login');
   nom= document.getElementById('nom');
   prenom  =document.getElementById('prenom');
   tel = document.getElementById('numTel');
 
+  //---on recupere les id des div de warning , puis on les cache toutes
 
   warn = document.getElementById('warn');
   warn.style.display = "none";
@@ -121,25 +124,11 @@
  
   var utilisateurs = "";
 
-  function verifierRegex(texte , regex , id) // texte : texte  tester la regex | regex : la regex | id : id du warn
-  {
-    if(/regex/.test(texte) == false)
-    {
-      btn.disabled=true ; 
-      btn.innerHTML="Pas de creation de compte";
-      id.style.display = "block";
-      
-    }
-    else
-    {
-      btn.disabled=false; 
-      btn.innerHTML="Creer le compte";
-      id.style.display = "none";
-       
-    }
-  }
 
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le numero est valide
+//--si le numero n'est pas valide , on affiche la div eton desactive le bouton submit
 
+  
 
 tel.addEventListener('keyup',function(e){
 
@@ -158,6 +147,10 @@ tel.addEventListener('keyup',function(e){
        
     }
 } );
+
+
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le nom est valide
+//--si le nom n'est pas valide , on affiche la div eton desactive le bouton submit
 
 
 nom.addEventListener('keyup',function(e){
@@ -180,6 +173,13 @@ else
   }
 } );
 
+
+
+//---on fait un ecouteur d'evenement de chaque touche frappe pour verifier si le prenom est valide
+//--si le prenom n'est pas valide , on affiche la div eton desactive le bouton submit
+
+
+
 prenom.addEventListener('keyup',function(e){
 
 if(/^([a-zA-Z]|[a-zA-Z]\-[a-zA-Z]|[a-zA-Z]'[a-zA-Z]|[a-zA-Z]'[a-zA-Z]-[a-zA-Z]'[a-zA-Z]|[a-zA-Z] [a-zA-Z])*$/.test(prenom.value) == false)
@@ -201,6 +201,10 @@ else
 } );
 
 
+// fonction qui verifie si un fichier existe , renvoie true si oui , sinon false
+// on utilise du AJAX pour faire une requete XMLhttp
+// si on trouve pas le fichier ( status == 404 ) on revoie false ,sinon on renvoie true
+
 function checkFileExist(fileurl)
 {
   var xhr = new XMLHttpRequest();
@@ -213,6 +217,10 @@ function checkFileExist(fileurl)
     return true;
 }
 
+// dans le cas ou le login est deja existant 
+// cette fonction affiche la div de warning , met le bouton submit en rouge
+// et on desactive le bouton de submit
+
 function ilExiste(){
   btn.disabled=true ; 
   btn.className = "redButton" ;
@@ -220,6 +228,10 @@ function ilExiste(){
    warn.style.display = "block";
   return;
 }
+
+// dans le cas ou le login est pas deja existant 
+// cette fonction cache la div de warning , met le bouton submit en blanc
+// et on active le bouton de submit
 
 function ilExistePas(){
   btn.disabled=false; 
@@ -229,9 +241,12 @@ function ilExistePas(){
   return;
 }
 
-login.addEventListener("keyup", function( event ) {
+// on ecoute chaque touche frappe par le user quand il tape le login et on recupere la valeur tapé
+// on cree une variable fichier et on la met sous la forme de "valeurRecupere".txt
+// si le le fichier existe deja , on appelle la fonction ilExiste() qui bloque le submit et affiche le warning
+// sinon on appelle la fonction IlExsitePas() qui remet les choses a la normale
 
-  console.log("okay");
+login.addEventListener("keyup", function( event ) {
 
   fichier = "../users/"+login.value.trim()+".txt";
 
@@ -257,16 +272,21 @@ login.addEventListener("keyup", function( event ) {
 });
  
 
-naissance = document.getElementById("naissance");  // verification de la date
+naissance = document.getElementById("naissance");    // on recupere la date de naissance saisie par l'utilisateur
 
 var aujourdhui = new Date();
-var cetteAnnee = aujourdhui.getFullYear();
+var cetteAnnee = aujourdhui.getFullYear();  //recuperation de la date d'aujourd'hui
+
+
+//--- fonction qui verifie si l'utilisateur est majeur , si oui on fait rien (le bouton reste active)
+// sinon on affiche une popup qui lui dit qu'il faut etre majeur
+// et on desactive le bouton submit
 
 
 function majeur(){
 var ladate = naissance.value.split('-');
 
-  var age =  cetteAnnee -  ladate[0];
+  var age =  cetteAnnee -  ladate[0];  // on verifie l'age
   if(age < 18){
     alert("Tu dois avoir plus de 18 pour boire , gamin");
     btn.disabled=true;
