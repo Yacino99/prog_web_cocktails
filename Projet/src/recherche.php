@@ -195,18 +195,11 @@
 						$nbAlimSouhaitePresent++;
 						$trouve = true;
 					}
-					if (in_array($parcoursIngredient, $alimNonSouhaites)) { // une categorie superieure de l'ingredient est dans les alimNonSouhaites
-						$nbAlimNonSouhaitePresent++;
-						$trouve = true;
-					}
-					if (in_array($parcoursIngredient, $alimSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimSouhaites
-						$nbAlimSouhaiteAbsent++;
-						$trouve = true;
-					}
-					if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
+					if ( sizeof($alimNonSouhaites) != 0 && !in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
 						$nbAlimNonSouhaiteAbsent++;
 						$trouve = true;
 					}
+					
 					$parcoursIngredient = $Hierarchie[$parcoursIngredient]["super-categorie"][0];
 				}
 				if ($trouve )
@@ -215,13 +208,7 @@
 				if (in_array($parcoursIngredient, $alimSouhaites)) { // une categorie superieure de l'ingredient est dans les alimSouhaites
 					$nbAlimSouhaitePresent++;
 				}
-				if (in_array($parcoursIngredient, $alimNonSouhaites)) { // une categorie superieure de l'ingredient est dans les alimNonSouhaites
-					$nbAlimNonSouhaitePresent++;
-				}
-				if (in_array($parcoursIngredient, $alimSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimSouhaites
-					$nbAlimSouhaiteAbsent++;
-				}
-				if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
+				if ( sizeof($alimNonSouhaites) != 0  && !in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
 					$nbAlimNonSouhaiteAbsent++;
 				}
 				
@@ -260,3 +247,4 @@
 		}
 	}
 ?>
+
