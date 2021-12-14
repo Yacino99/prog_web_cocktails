@@ -186,6 +186,7 @@
 			$nbAlimSouhaiteAbsent = 0;
 			$nbAlimNonSouhaiteAbsent = 0;
 			$nbAlimNonSouhaitePresent = 0;
+			
 			foreach($Recette['index'] as $num => $ingredient) { // les ingredients PRESENT
 				$trouve = false;
 				$parcoursIngredient = $ingredient;
@@ -208,6 +209,8 @@
 					}
 					$parcoursIngredient = $Hierarchie[$parcoursIngredient]["super-categorie"][0];
 				}
+				if ($trouve )
+					break;
 				// Pour aliment
 				if (in_array($parcoursIngredient, $alimSouhaites)) { // une categorie superieure de l'ingredient est dans les alimSouhaites
 					$nbAlimSouhaitePresent++;
@@ -221,6 +224,7 @@
 				if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
 					$nbAlimNonSouhaiteAbsent++;
 				}
+				
 			}
 
 			/* On dispose de
