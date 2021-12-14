@@ -1,4 +1,5 @@
 <?php
+	include "estReconnu.php";
 	// Vérifier si le formulaire est soumis 
 	if ( isset( $_POST['submit'] ) ) {
 		$recherche = $_POST['recherche']."."; 
@@ -14,15 +15,16 @@
 			$j++;
 		}
 	}
-	  
+	$alimNonReconnu = array();
+	$alimNonSouhaites = array();
+	$alimSouhaites = array();
 	if ( $j%2 )
-		echo "Problème de syntaxe dans votre requête : nombre impair de double-quotes";
+		echo "Problème de syntaxe dans votre requête : nombre impair de double-quotes \n </br>";
 	else {
 		$i =0;
 		$k =0;
-		$t= 0;
-		$alimNonSouhaites = array();
-		$alimSouhaites = array();
+		$j= 0;
+		$t = 0;
 		while( $i<strlen($recherche) ){
 			if ($recherche[$i] == " " ){
 				$i++;
@@ -36,17 +38,26 @@
 						$alimNonSouhaite = $alimNonSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimNonSouhaites[$k] = $alimNonSouhaite;
-					$k++;
-					
+					if (estReconnu($alimNonSouhaite,$Hierarchie)){
+						$alimNonSouhaites[$k] = $alimNonSouhaite;
+						$k++;
+					}else {
+						$alimNonReconnu[$t] =$alimNonSouhaite;
+						$t++;
+					}
 				}else {//cas -....
 					$alimNonSouhaite = "";
 					while ($recherche[$i] != ' ' and $recherche[$i] != "."){
 						$alimNonSouhaite = $alimNonSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimNonSouhaites[$k] = $alimNonSouhaite;
-					$k++;
+					if (estReconnu($alimNonSouhaite, $Hierarchie)){
+						$alimNonSouhaites[$k] = $alimNonSouhaite;
+						$k++;
+					}else {
+						$alimNonReconnu[$t] =$alimNonSouhaite;
+						$t++;
+					}
 				}
 					
 			}else if($recherche[$i] == "+"  ){// cas +
@@ -59,51 +70,86 @@
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimSouhaites[$j] = $alimSouhaite;
-					$j++;
+					if (estReconnu($alimSouhaite,$Hierarchie)){
+						$alimSouhaites[$j] = $alimSouhaite;
+						$j++;
+					}else {
+						$alimNonReconnu[$t] =$alimSouhaite;
+						$t++;
+					}
+					
 				}else {// cas +....
 					$alimSouhaite = "";
 					while ($recherche[$i] != ' ' and  $recherche[$i] != "."){
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimSouhaites[$j] = $alimSouhaite;
-					$j++;
+					if (estReconnu($alimSouhaite,$Hierarchie)){
+						$alimSouhaites[$j] = $alimSouhaite;
+						$j++;
+					}else {
+						$alimNonReconnu[$t] =$alimSouhaite;
+						$t++;
+					}
 				}
 			
 				
 			}else { // cas 
-				if ($recherche[$i] == '"'){
+				if ($recherche[$i] == '"'){// cas "....."
 					$i++;
 					$alimSouhaite = "";
 					while ($recherche[$i] != '"'){
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimSouhaites[$j] = $alimSouhaite;
-					$j++;
-				}else if ($recherche[$i] != '"' and   $recherche[$i] != "."){
+					if (estReconnu($alimSouhaite,$Hierarchie)){
+						$alimSouhaites[$j] = $alimSouhaite;
+						$j++;
+					}else {
+						$alimNonReconnu[$t] =$alimSouhaite;
+						$t++;
+					}
+				}else if ($recherche[$i] != '"' and   $recherche[$i] != "."){ //cas ......
 					$alimSouhaite = "";
 					while ($recherche[$i] != ' ' and $recherche[$i] != "."){
 						$alimSouhaite = $alimSouhaite.$recherche[$i];
 						$i++;
 					}
-					$alimSouhaites[$j] = $alimSouhaite;
-					$j++;
+					if (estReconnu($alimSouhaite,$Hierarchie)){
+						$alimSouhaites[$j] = $alimSouhaite;
+						$j++;
+					}else {
+						$alimNonReconnu[$t] =$alimSouhaite;
+						$t++;
+					}
 				}
 			}
 			
 			$i++;
 		 }
-		 foreach($alimNonSouhaites as $alim ){
-			 
-			echo "alimNonSouhaite: ".$alim."\n </br>";
-			
+		 if (sizeof($alimSouhaites)>0){
+			 echo "liste des aliments souhaites :";
+			 foreach($alimSouhaites as $alim ){
+				echo $alim .",";
+			 }
+			 echo "\n </br>";
 		 }
-		
-		 foreach($alimSouhaites as $alim ){
-			echo"alimSouhaite: ".$alim. "\n </br>";
+		 if (sizeof($alimNonSouhaites)>0){
+			echo "liste des aliments non souhaites :";
+			 foreach($alimNonSouhaites as $alim ){
+				echo $alim .",";
+			 }
+			  echo "\n </br>";
 		 }
+		 if (sizeof($alimNonReconnu)>0){
+			 echo "Éléments non reconnus dans la requête :";
+			 foreach($alimNonReconnu as $alim ){
+				 echo $alim .",";
+			 }
+			  echo "\n </br>";
+				
+		 }
+		 
 	}
 
 
@@ -131,78 +177,82 @@
 		return true;
 	}
 	----------------------------------------------------------------------------------------------------------- */
+	if (sizeof($alimNonSouhaites)==0 && sizeof($alimSouhaites)== 0)
+		echo "Problème dans votre requête : recherche impossible \n </br>";
+	else {
 
-    foreach($Recettes as $numRecette => $Recette) {
-		$nbAlimSouhaitePresent = 0;
-		$nbAlimSouhaiteAbsent = 0;
-		$nbAlimNonSouhaiteAbsent = 0;
-		$nbAlimNonSouhaitePresent = 0;
-		foreach($Recette['index'] as $num => $ingredient) { // les ingredients PRESENT
-			$trouve = false;
-			$parcoursIngredient = $ingredient;
-			while($parcoursIngredient != "Aliment" && !$trouve) { // on cherche dans les super-categorie
+		foreach($Recettes as $numRecette => $Recette) {
+			$nbAlimSouhaitePresent = 0;
+			$nbAlimSouhaiteAbsent = 0;
+			$nbAlimNonSouhaiteAbsent = 0;
+			$nbAlimNonSouhaitePresent = 0;
+			foreach($Recette['index'] as $num => $ingredient) { // les ingredients PRESENT
+				$trouve = false;
+				$parcoursIngredient = $ingredient;
+				while($parcoursIngredient != "Aliment" && !$trouve) { // on cherche dans les super-categorie
+					if (in_array($parcoursIngredient, $alimSouhaites)) { // une categorie superieure de l'ingredient est dans les alimSouhaites
+						$nbAlimSouhaitePresent++;
+						$trouve = true;
+					}
+					if (in_array($parcoursIngredient, $alimNonSouhaites)) { // une categorie superieure de l'ingredient est dans les alimNonSouhaites
+						$nbAlimNonSouhaitePresent++;
+						$trouve = true;
+					}
+					if (in_array($parcoursIngredient, $alimSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimSouhaites
+						$nbAlimSouhaiteAbsent++;
+						$trouve = true;
+					}
+					if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
+						$nbAlimNonSouhaiteAbsent++;
+						$trouve = true;
+					}
+					$parcoursIngredient = $Hierarchie[$parcoursIngredient]["super-categorie"][0];
+				}
+				// Pour aliment
 				if (in_array($parcoursIngredient, $alimSouhaites)) { // une categorie superieure de l'ingredient est dans les alimSouhaites
 					$nbAlimSouhaitePresent++;
-					$trouve = true;
 				}
 				if (in_array($parcoursIngredient, $alimNonSouhaites)) { // une categorie superieure de l'ingredient est dans les alimNonSouhaites
 					$nbAlimNonSouhaitePresent++;
-					$trouve = true;
 				}
 				if (in_array($parcoursIngredient, $alimSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimSouhaites
 					$nbAlimSouhaiteAbsent++;
-					$trouve = true;
 				}
 				if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
 					$nbAlimNonSouhaiteAbsent++;
-					$trouve = true;
 				}
-				$parcoursIngredient = $Hierarchie[$parcoursIngredient]["super-categorie"][0];
 			}
-			// Pour aliment
-			if (in_array($parcoursIngredient, $alimSouhaites)) { // une categorie superieure de l'ingredient est dans les alimSouhaites
-				$nbAlimSouhaitePresent++;
-			}
-			if (in_array($parcoursIngredient, $alimNonSouhaites)) { // une categorie superieure de l'ingredient est dans les alimNonSouhaites
-				$nbAlimNonSouhaitePresent++;
-			}
-			if (in_array($parcoursIngredient, $alimSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimSouhaites
-				$nbAlimSouhaiteAbsent++;
-			}
-			if (in_array($parcoursIngredient, $alimNonSouhaites)) { // toutes les categories superieures de l'ingredient sont absentes de alimNonSouhaites
-				$nbAlimNonSouhaiteAbsent++;
-			}
+
+			/* On dispose de
+			- $nbAlimSouhaitePresent
+			- $nbAlimSouhaiteAbsent
+			- $nbAlimNonSouhaiteAbsent
+			- $nbAlimNonSouhaitePresent
+			pour calculer $score[$Recette]
+			*/
+
+			$nbCriteres = sizeof($alimSouhaites) + sizeof($alimNonSouhaites);
+			$score[$Recette['titre']] = 100*( ($nbAlimSouhaitePresent + $nbAlimNonSouhaiteAbsent)/$nbCriteres );
+
+			//echo "Recette : ".$Recette['titre'].", nbAlimSouhaitePresent : ".$nbAlimSouhaitePresent.", nbAlimNonSouhaiteAbsent : ".$nbAlimNonSouhaiteAbsent."</br>";
+
 		}
 
-		/* On dispose de
-		- $nbAlimSouhaitePresent
-		- $nbAlimSouhaiteAbsent
-		- $nbAlimNonSouhaiteAbsent
-		- $nbAlimNonSouhaitePresent
-		pour calculer $score[$Recette]
-		*/
-
-		$nbCriteres = sizeof($alimSouhaites) + sizeof($alimNonSouhaites);
-		$score[$Recette['titre']] = 100*( ($nbAlimSouhaitePresent + $nbAlimNonSouhaiteAbsent)/$nbCriteres );
-
-		echo "Recette : ".$Recette['titre'].", nbAlimSouhaitePresent : ".$nbAlimSouhaitePresent.", nbAlimNonSouhaiteAbsent : ".$nbAlimNonSouhaiteAbsent."</br>";
-
-    }
-
-	include("traitementNomFichier.php"); // accès à la fonction traitementNomFichier($chaine)
-	arsort($score); // trie par ordre decroissant en gardant le lien index valeur
-	foreach($score as $titreRecette => $pourcent) {
-		if ($pourcent > 0) {
-			//echo $titreRecette;
-			$nomFichier = traitementNomFichier($titreRecette);
-			if (!file_exists("../Photos/".$nomFichier))
-				$nomFichier = "cocktail.png";
-			echo "
-				<div class=\"boisson border col-auto\">
-				<h5><a href=\"?recette=".$titreRecette."\">".$titreRecette."</a> <a><img class='heart' id=\"".$titreRecette."\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
-				<img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
-				<p>".$pourcent."</p>
-			";
+		include("traitementNomFichier.php"); // accès à la fonction traitementNomFichier($chaine)
+		arsort($score); // trie par ordre decroissant en gardant le lien index valeur
+		foreach($score as $titreRecette => $pourcent) {
+			if ($pourcent > 0) {
+				//echo $titreRecette;
+				$nomFichier = traitementNomFichier($titreRecette);
+				if (!file_exists("../Photos/".$nomFichier))
+					$nomFichier = "cocktail.png";
+				echo "
+					<div class=\"boisson border col-auto\">
+					<h5><a href=\"?recette=".$titreRecette."\">".$titreRecette."</a> <a><img class='heart' id=\"".$titreRecette."\" height=\"20\" width=\"20\" src=\"../Photos/coeur.png\"/></a></h5>
+					<img src=\"../Photos/".$nomFichier."\" alt=\"boisson\" height=\"100\">
+					<p>".$pourcent."</p>
+				";
+			}
 		}
 	}
 ?>
